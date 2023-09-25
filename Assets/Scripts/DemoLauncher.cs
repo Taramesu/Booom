@@ -15,14 +15,17 @@ public class DemoLauncher : MonoBehaviour
         Debug.Log(DataManager.Instance.GetfasdffByID(1).name);
         text.text += DataManager.Instance.GetfasdffByID(1).ATK;
         Debug.Log(DataManager.Instance.GetfasdffByID(1).ATK);
-        foreach (var VARIABLE in DataManager.Instance.GetfasdffByID(1).result)
-        {
-            foreach (var VARIABLE2 in VARIABLE)
-            {
-                text.text += VARIABLE2;
-                Debug.Log(VARIABLE2);
-            }
-        }
+        text.text += DataManager.Instance.GetfasdffByID(1).speedMulti;
+        Debug.Log(DataManager.Instance.GetfasdffByID(1).speedMulti);
+
+        //    foreach (var VARIABLE in DataManager.Instance.GetfasdffByID(1).result)
+        //    {
+        //        foreach (var VARIABLE2 in VARIABLE)
+        //        {
+        //            text.text += VARIABLE2;
+        //            Debug.Log(VARIABLE2);
+        //        }
+        //    }
     }
     // IEnumerator Start()
     // {
