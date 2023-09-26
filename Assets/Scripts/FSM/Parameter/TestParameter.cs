@@ -11,5 +11,7 @@ namespace Parameter
         public float HP;
 
         public float ATK;
+
+        public Animator animator;
     }
 }
