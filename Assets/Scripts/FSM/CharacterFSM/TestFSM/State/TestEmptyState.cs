@@ -28,7 +28,7 @@ public class TestEmptyState : IState
     {
         //此处写该状态的运行逻辑，以及退出该状态转入其他状态的时机判断（常用动画播放进度判断）
 
-        Debug.Log("idle");
+        //Debug.Log("idle");
         if(PlayerInputData.Instance.moveVal != Vector2.zero)
         manager.TransitionState(TestST.Walk); //例：使用管理器的状态转换函数转入攻击状态
     }
