@@ -6,10 +6,12 @@ namespace Parameter
 {
     public class TestParameter
     {
-        public string name;
+        public string name = "player";
 
-        public float HP;
+        public float HP = 50;
 
-        public float ATK;
+        public float ATK = 10;
+
+        public Animator animator;
     }
 }

@@ -6,6 +6,6 @@ namespace StateType
 {
     public enum TestST
     {
-        Empty, Idle, Run, Attack
+        Empty, Idle, Run, Attack, Walk
     }
 }
