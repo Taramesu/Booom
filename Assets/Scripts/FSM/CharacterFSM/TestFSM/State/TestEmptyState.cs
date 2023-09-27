@@ -1,9 +1,11 @@
 using FsmManager;
 using Parameter;
+using StateType;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TestEmptyState : IState
 {
@@ -26,7 +28,9 @@ public class TestEmptyState : IState
     {
         //此处写该状态的运行逻辑，以及退出该状态转入其他状态的时机判断（常用动画播放进度判断）
 
-        //manager.TransitionState(TestST.Attack); 例：使用管理器的状态转换函数转入攻击状态
+        Debug.Log("idle");
+        if(PlayerInputData.Instance.moveVal != Vector2.zero)
+        manager.TransitionState(TestST.Walk); //例：使用管理器的状态转换函数转入攻击状态
     }
 
     public void OnExit()

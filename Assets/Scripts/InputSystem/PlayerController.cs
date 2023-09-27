@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
         //}
     }
 
+    #region CallbackFunction
     public void OnDropBoomStarted(InputAction.CallbackContext value)
     {
         //Debug.Log(value.action.name + (" was triggered"));
@@ -134,6 +135,8 @@ public class PlayerController : MonoBehaviour
     {
         PlayerInputData.Instance.pauseGameVal = false;
     }
+
+    #endregion
 }
 
 

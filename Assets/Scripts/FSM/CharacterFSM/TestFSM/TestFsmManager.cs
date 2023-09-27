@@ -19,6 +19,7 @@ namespace FsmManager
         {
             //´Ë´¦×¢²á×´Ì¬
             states.Add(TestST.Empty, new TestEmptyState(this));
+            states.Add(TestST.Walk, new TestWalkState(this));
 
             /*------------------------------------------------------------------*/
 

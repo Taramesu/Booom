@@ -21,7 +21,7 @@ public class TestWalkState : IState
     public void OnEnter()
     {
         //此处填写进入此状态时的相关操作（如：播放此状态的动画，初始化某些数据
-        parameter.animator.Play("walk");
+        Debug.Log("startWalk");
     }
 
     public void OnUpdate()
@@ -29,12 +29,17 @@ public class TestWalkState : IState
         //此处写该状态的运行逻辑，以及退出该状态转入其他状态的时机判断（常用动画播放进度判断）
 
         //manager.TransitionState(TestST.Attack); 例：使用管理器的状态转换函数转入攻击状态
-
-        
+        Debug.Log("Walking");
+        Debug.Log("我的名字"+parameter.name);
+        if (PlayerInputData.Instance.moveVal == Vector2.zero)
+        {
+            manager.TransitionState(TestST.Empty);
+        }
     }
 
     public void OnExit()
     {
         //此处填写退出此状态时的相关操作
+        Debug.Log("stopWalk");
     }
 }
