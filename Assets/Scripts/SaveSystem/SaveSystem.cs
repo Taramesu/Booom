@@ -5,6 +5,32 @@ using UnityEngine;
 
 public class SaveSystem : Singleton2Manager<SaveSystem>
 {
+    #region PlayerPrefs
+
+    public void SaveByPlayerPrefs(string key, object data)
+    {
+        var json = JsonUtility.ToJson(data);
+
+        PlayerPrefs.SetString(key, json);
+        PlayerPrefs.Save();
+
+#if UNITY_EDITOR
+        Debug.Log("Successfully saved data to PlayerPrefs. ");
+#endif
+    }
+
+    public string LoadFromPlayerPrefs(string key)
+    {
+
+#if UNITY_EDITOR
+        Debug.Log("Successfully loaded data from PlayerPrefs. ");
+#endif
+
+        return PlayerPrefs.GetString(key, null);
+    }
+
+    #endregion
+
     #region JSON_Save&Load
     public void SaveByJson(string saveFileName, object data)
     {
