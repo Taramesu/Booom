@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TestST
+public enum PlayerST
 {
-    Empty, Idle, Run, Attack, Walk
+    Idle, WalkUp, WalkDown, WalkLeft, WalkRight
 }

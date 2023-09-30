@@ -11,12 +11,14 @@ public class DemoLauncher : MonoBehaviour
     {
         //读取二进制文件
         DataManager.Instance.LoadAll();
-        text.text += DataManager.Instance.GetfasdffByID(1).name;
-        Debug.Log(DataManager.Instance.GetfasdffByID(1).name);
-        text.text += DataManager.Instance.GetfasdffByID(1).ATK;
-        Debug.Log(DataManager.Instance.GetfasdffByID(1).ATK);
-        text.text += DataManager.Instance.GetfasdffByID(1).speedMulti;
-        Debug.Log(DataManager.Instance.GetfasdffByID(1).speedMulti);
+        //text.text += DataManager.Instance.GetfasdffByID(1).name;
+        //Debug.Log(DataManager.Instance.GetfasdffByID(1).name);
+        //text.text += DataManager.Instance.GetfasdffByID(1).ATK;
+        //Debug.Log(DataManager.Instance.GetfasdffByID(1).ATK);
+        //text.text += DataManager.Instance.GetfasdffByID(1).speedMulti;
+        //Debug.Log(DataManager.Instance.GetfasdffByID(1).speedMulti);
+        text.text += DataManager.Instance.GetfasdffByID(8).name;
+        text.text += DataManager.Instance.GetfasdffByID(8).speed;
 
         //    foreach (var VARIABLE in DataManager.Instance.GetfasdffByID(1).result)
         //    {
