@@ -34,6 +34,8 @@ public class PlayerIdleState : IState
 #endif
         }
 
+        manager.HeadSynchronize += OnHeadSynchronizeIdle;
+
     }
 
     public void OnUpdate()
@@ -42,18 +44,18 @@ public class PlayerIdleState : IState
 
         if(PlayerInputData.Instance.moveVal != Vector2.zero)
         {
-            switch (manager.GetMoveDir(PlayerInputData.Instance.moveVal))
+            switch (manager.GetDir(PlayerInputData.Instance.moveVal))
             {
-                case PlayerMoveDir.up:
+                case PlayerDir.up:
                     manager.TransitionState(PlayerST.WalkUp);
                     break;
-                case PlayerMoveDir.down:
+                case PlayerDir.down:
                     manager.TransitionState(PlayerST.WalkDown);
                     break;
-                case PlayerMoveDir.left:
+                case PlayerDir.left:
                     manager.TransitionState(PlayerST.WalkLeft);
                     break;
-                case PlayerMoveDir.right:
+                case PlayerDir.right:
                     manager.TransitionState(PlayerST.WalkRight);
                     break;
             }
@@ -64,6 +66,11 @@ public class PlayerIdleState : IState
     public void OnExit()
     {
         //此处填写退出此状态时的相关操作
+        manager.HeadSynchronize -= OnHeadSynchronizeIdle;
     }
-  
+
+    public void OnHeadSynchronizeIdle()
+    {
+        parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
+    }
 }

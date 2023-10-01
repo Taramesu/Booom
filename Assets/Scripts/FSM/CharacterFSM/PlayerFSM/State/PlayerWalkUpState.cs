@@ -32,15 +32,14 @@ public class PlayerWalkUpState : IState
 #endif
         }
 
-#if UNITY_EDITOR
-        Debug.Log("back");
-#endif
+        manager.HeadSynchronize += OnHeadSynchronizeUp;
+
     }
 
     public void OnUpdate()
     {
         parameter.transform.Translate(PlayerInputData.Instance.moveVal * parameter.speed * Time.deltaTime);
-        if (PlayerInputData.Instance.moveVal == Vector2.zero || manager.GetMoveDir(PlayerInputData.Instance.moveVal) != PlayerMoveDir.up)
+        if (PlayerInputData.Instance.moveVal == Vector2.zero || manager.GetDir(PlayerInputData.Instance.moveVal) != PlayerDir.up)
         {
             manager.TransitionState(PlayerST.Idle);
         }
@@ -48,7 +47,12 @@ public class PlayerWalkUpState : IState
 
     public void OnExit()
     {
+        manager.HeadSynchronize -= OnHeadSynchronizeUp;
+    }
 
+    public void OnHeadSynchronizeUp()
+    {
+        parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-behind.png");
     }
 
 }

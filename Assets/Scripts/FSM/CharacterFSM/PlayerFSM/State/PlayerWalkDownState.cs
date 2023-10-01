@@ -32,16 +32,15 @@ public class PlayerWalkDownState : IState
 #endif
         }
 
-#if UNITY_EDITOR
-        Debug.Log("front");
-#endif
+        manager.HeadSynchronize += OnHeadSynchronizeDown;
+
     }
 
     public void OnUpdate()
     {
         parameter.transform.Translate(PlayerInputData.Instance.moveVal*parameter.speed*Time.deltaTime);
 
-        if(PlayerInputData.Instance.moveVal == Vector2.zero || manager.GetMoveDir(PlayerInputData.Instance.moveVal) != PlayerMoveDir.down)
+        if(PlayerInputData.Instance.moveVal == Vector2.zero || manager.GetDir(PlayerInputData.Instance.moveVal) != PlayerDir.down)
         {
             manager.TransitionState(PlayerST.Idle);
         }
@@ -49,7 +48,12 @@ public class PlayerWalkDownState : IState
 
     public void OnExit()
     {
+        manager.HeadSynchronize -= OnHeadSynchronizeDown;
+    }
 
+    public void OnHeadSynchronizeDown()
+    {
+        parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
     }
 
 }

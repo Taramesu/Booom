@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
-public enum PlayerMoveDir
+public enum PlayerDir
 { 
     up, down, left, right
 }
@@ -31,10 +34,21 @@ public class PlayerFsmManager : MonoBehaviour
         TransitionState(PlayerST.Idle);//选择一个初始状态并在运行初始时转入（一般为Idle状态）
     }
 
+    private void OnEnable()
+    {
+      
+    }
+
     // 运行当前子状态的更新函数实现当前状态的实时更新
     void Update()
     {
         currentState.OnUpdate();
+        OtherOperationManage();
+    }
+
+    private void OnDisable()
+    {
+        
     }
 
     //状态转换方法
@@ -49,25 +63,25 @@ public class PlayerFsmManager : MonoBehaviour
     }
 
     #region Help_Function
-    public PlayerMoveDir GetMoveDir(Vector2 inputData)
+    public PlayerDir GetDir(Vector2 inputData)
     {
-        PlayerMoveDir dir;
+        PlayerDir dir;
         var degrees = Mathf.Rad2Deg * Mathf.Atan2(inputData.y, inputData.x);
 
         if(degrees is >= -135f and <=-45f)
         {
-            dir = PlayerMoveDir.down;
+            dir = PlayerDir.down;
         }
         else if (degrees is >= -45f and <= 45f)
         {
-            dir = PlayerMoveDir.right;
+            dir = PlayerDir.right;
         }
         else if (degrees is >= 45f and <= 135f)
         {
-            dir= PlayerMoveDir.up;
+            dir= PlayerDir.up;
         }else
         {
-            dir = PlayerMoveDir.left;
+            dir = PlayerDir.left;
         }
 
         return dir;
@@ -93,5 +107,63 @@ public class PlayerFsmManager : MonoBehaviour
         Debug.Log($"dataSpeed: {data.speed}");
 #endif
     }
+
+    /// <summary>
+    /// Player特殊处理，AI请直接将攻击写成状态
+    /// </summary>
+    private void OtherOperationManage()
+    {
+#if UNITY_EDITOR
+        Debug.Log($"attackData: {PlayerInputData.Instance.attackVal}");
+#endif
+        if(PlayerInputData.Instance.attackVal != Vector2.zero)
+        {
+            parameter.attacking = true;
+            switch (GetDir(PlayerInputData.Instance.attackVal))
+            {
+                case PlayerDir.up:
+                    parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-behind.png");
+                    break;
+                case PlayerDir.down:
+                    parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
+                    break;
+                case PlayerDir.left:
+                    parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-left.png");
+                    break;
+                case PlayerDir.right:
+                    parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-right.png");
+                    break;
+            }
+        }
+        else
+        {
+            parameter.attacking=false;
+            HeadSynchronize?.Invoke();
+        }
+
+        if(PlayerInputData.Instance.dropBoomVal)
+        {
+#if UNITY_EDITOR
+            Debug.Log("dropBoom!");
+#endif
+        }
+
+        if(PlayerInputData.Instance.openBagVal)
+        {
+#if UNITY_EDITOR
+            Debug.Log("openBag!");
+#endif
+        }
+
+        if(PlayerInputData.Instance.useItemsVal)
+        {
+#if UNITY_EDITOR
+            Debug.Log("useItems!");
+#endif
+        }
+    }
+
+    public event Action HeadSynchronize;
+
     #endregion
 }
