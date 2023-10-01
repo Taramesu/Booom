@@ -32,15 +32,14 @@ public class PlayerWalkLeftState : IState
 #endif
         }
 
-#if UNITY_EDITOR
-        Debug.Log("left");
-#endif
+        manager.HeadSynchronize += OnHeadSynchronizeLeft;
+
     }
 
     public void OnUpdate()
     {
         parameter.transform.Translate(PlayerInputData.Instance.moveVal * parameter.speed * Time.deltaTime);
-        if (PlayerInputData.Instance.moveVal == Vector2.zero || manager.GetMoveDir(PlayerInputData.Instance.moveVal) != PlayerMoveDir.left)
+        if (PlayerInputData.Instance.moveVal == Vector2.zero || manager.GetDir(PlayerInputData.Instance.moveVal) != PlayerDir.left)
         {
             manager.TransitionState(PlayerST.Idle);
         }
@@ -48,7 +47,11 @@ public class PlayerWalkLeftState : IState
 
     public void OnExit()
     {
-
+        manager.HeadSynchronize -= OnHeadSynchronizeLeft;
     }
 
+    public void OnHeadSynchronizeLeft()
+    {
+        parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-left.png");
+    }
 }
