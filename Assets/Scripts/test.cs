@@ -22,6 +22,9 @@ public class test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
+        Debug.Log(PlayerInputData.Instance.moveVal);
+#endif
         if(Input.GetKeyDown(KeyCode.J))
         {
             RoomGenerator.Instance.GenerateRooms();

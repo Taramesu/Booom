@@ -52,16 +52,22 @@ public class PlayerFsmManager : MonoBehaviour
     public PlayerMoveDir GetMoveDir(Vector2 inputData)
     {
         PlayerMoveDir dir;
+        var degrees = Mathf.Rad2Deg * Mathf.Atan2(inputData.y, inputData.x);
 
-        var moveRatio = inputData.y / inputData.x;
-
-        if (inputData.y > 0)
+        if(degrees is >= -135f and <=-45f)
         {
-            dir = moveRatio >= 1 ? PlayerMoveDir.up : PlayerMoveDir.right;
+            dir = PlayerMoveDir.down;
         }
-        else
+        else if (degrees is >= -45f and <= 45f)
         {
-            dir = moveRatio >= 1 ? PlayerMoveDir.down : PlayerMoveDir.left;
+            dir = PlayerMoveDir.right;
+        }
+        else if (degrees is >= 45f and <= 135f)
+        {
+            dir= PlayerMoveDir.up;
+        }else
+        {
+            dir = PlayerMoveDir.left;
         }
 
         return dir;
@@ -75,7 +81,12 @@ public class PlayerFsmManager : MonoBehaviour
         parameter.ATK = data.ATK;
         parameter.speed = data.speed;
         parameter.shootRate = data.shootRate;
+
         parameter.transform = GetComponent<Transform>();
+        parameter.animator = transform.Find("Body").GetComponent<Animator>();
+        parameter.headSpriteRenderer = transform.Find("Head").GetComponent<SpriteRenderer>();
+
+        parameter.headSpritePath = "Assets/ArtAssets/Player/head/";
 
 #if UNITY_EDITOR
         Debug.Log($"realSpeed: {parameter.speed}");

@@ -13,7 +13,13 @@ public class PlayerParameter
 
     public float shootRate;
 
+    public bool attacking;
+
+    public string headSpritePath;
+
     public Animator animator;
 
     public Transform transform;
+
+    public SpriteRenderer headSpriteRenderer;
 }  
