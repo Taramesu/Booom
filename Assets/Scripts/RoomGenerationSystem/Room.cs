@@ -9,6 +9,10 @@ public class Room : MonoBehaviour
     public RoomType type;
     public int currentLayerID;
     public Vector2 position;
+    public Transform leftDoorPoint;
+    public Transform rightDoorPoint;
+    public Transform topDoorPoint;
+    public Transform bottomDoorPoint;
 
     //public Text text;
 
