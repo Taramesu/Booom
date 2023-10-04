@@ -8,6 +8,7 @@ public class test : MonoBehaviour
     public Transform spawnPoint;
     public GameObject roomPrefab;
     public GameObject doorPrefab;
+    public GameObject roomEdgePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +16,7 @@ public class test : MonoBehaviour
         RoomGenerator.Instance.roomPrefabName = "Room1";
         RoomGenerator.Instance.roomQuantity = 7;
         RoomGenerator.Instance.doorPrefabs = doorPrefab;
+        RoomGenerator.Instance.roomEdgePrefab = roomEdgePrefab;
 
         RoomGenerator.Instance.generatorPoint = spawnPoint;
         RoomGenerator.Instance.xOffset = 40;

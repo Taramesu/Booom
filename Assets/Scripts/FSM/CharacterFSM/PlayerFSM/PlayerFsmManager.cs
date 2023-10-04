@@ -103,8 +103,8 @@ public class PlayerFsmManager : MonoBehaviour
         parameter.headSpritePath = "Assets/ArtAssets/Player/head/";
 
 #if UNITY_EDITOR
-        Debug.Log($"realSpeed: {parameter.speed}");
-        Debug.Log($"dataSpeed: {data.speed}");
+        //Debug.Log($"realSpeed: {parameter.speed}");
+        //Debug.Log($"dataSpeed: {data.speed}");
 #endif
     }
 
@@ -114,7 +114,7 @@ public class PlayerFsmManager : MonoBehaviour
     private void OtherOperationManage()
     {
 #if UNITY_EDITOR
-        Debug.Log($"attackData: {PlayerInputData.Instance.attackVal}");
+        //Debug.Log($"attackData: {PlayerInputData.Instance.attackVal}");
 #endif
         if(PlayerInputData.Instance.attackVal != Vector2.zero)
         {

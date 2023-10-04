@@ -14,6 +14,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
     public string roomPrefabName;
     public int roomQuantity;
     public GameObject doorPrefabs;
+    public GameObject roomEdgePrefab;
     #endregion
 
     #region Room_Position
@@ -83,6 +84,9 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.nextRoomType = roomsMap[i - 1][j].type;
                         door.position = DoorPos.Bottom;
                         door.target = roomsMap[i - 1][j].topDoorPoint;
+                        door.transferOffset = new Vector3(0, -1.5f, 0);
+                        door.targetRoom = roomsMap[i - 1][j].transform;
+                        door.roomEdge = roomEdgePrefab.transform;
                     }
                     if (roomsMap[i + 1][j] != null)
                     {
@@ -90,6 +94,9 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.nextRoomType = roomsMap[i + 1][j].type;
                         door.position = DoorPos.Top;
                         door.target = roomsMap[i + 1][j].bottomDoorPoint;
+                        door.transferOffset = new Vector3(0, 1.5f, 0);
+                        door.targetRoom = roomsMap[i + 1][j].transform;
+                        door.roomEdge = roomEdgePrefab.transform;
                     }
                     if (roomsMap[i][j - 1] != null)
                     {
@@ -97,6 +104,9 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.nextRoomType = roomsMap[i][j - 1].type;
                         door.position = DoorPos.Right;
                         door.target = roomsMap[i][j - 1].leftDoorPoint;
+                        door.transferOffset = new Vector3(-1.5f, 0, 0);
+                        door.targetRoom = roomsMap[i][j - 1].transform;
+                        door.roomEdge = roomEdgePrefab.transform;
                     }
                     if (roomsMap[i ][j + 1] != null)
                     {
@@ -104,6 +114,9 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.nextRoomType = roomsMap[i][j + 1].type;
                         door.position = DoorPos.Left;
                         door.target = roomsMap[i][j + 1].rightDoorPoint;
+                        door.transferOffset = new Vector3(1.5f, 0, 0);
+                        door.targetRoom = roomsMap[i][j + 1].transform;
+                        door.roomEdge = roomEdgePrefab.transform;
                     }
                 }
             }
