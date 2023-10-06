@@ -6,12 +6,17 @@ using UnityEngine.Playables;
 
 public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
 {
-    [SerializeField] public string playerName;
-    [SerializeField] public int playerLevel;
-    [SerializeField] public float playerCurrentEXP;
-    [SerializeField] public Vector2 playerPosition;
-    [SerializeField] public float playerCurrentHP;
-    [Serializable] class SaveData //需要存档的数据
+    public string playerName;
+    public int playerLevel;
+    public float playerCurrentEXP;
+    public Vector2 playerPosition;
+    public float playerCurrentHP;
+    public List<Vector3> roomPositionList;
+    public List<Vector2> roomsMapIndex;
+    public float currentSpeed;
+    public Vector2 roomEdgePosition;
+    [Serializable]
+    class SaveData //需要存档的数据
     {
         public string playerName;
 
@@ -22,6 +27,14 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
         public Vector2 playerPosition;
 
         public float playerCurrentHP;
+
+        public float currentSpeed;
+
+        public List<Vector3> roomPositionList = new List<Vector3>();
+
+        public List<Vector2> roomsMapIndex = new List<Vector2>();
+
+        public Vector2 roomEdgePosition;
     }
 
     const string PLAYER_DATA_FILE_NAME = "PlayerData.sav";
@@ -30,7 +43,7 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
     /// 外部调用存档读档API
     /// </summary>
     #region API_S&L_DELETE
-   public void Save()
+    public void Save()
     {
         SaveByJson();
     }
@@ -56,7 +69,7 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
 
     void LoadFromJson()
     {
-        var saveData =  SaveSystem.Instance.LoadFromJson<SaveData>(PLAYER_DATA_FILE_NAME);
+        var saveData = SaveSystem.Instance.LoadFromJson<SaveData>(PLAYER_DATA_FILE_NAME);
         LoadData(saveData);
     }
 
@@ -76,6 +89,10 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
         saveData.playerCurrentEXP = playerCurrentEXP;
         saveData.playerPosition = playerPosition;
         saveData.playerCurrentHP = playerCurrentHP;
+        saveData.roomPositionList = roomPositionList;
+        saveData.roomsMapIndex = roomsMapIndex;
+        saveData.currentSpeed = currentSpeed;
+        saveData.roomEdgePosition = roomEdgePosition;
         return saveData;
     }
 
@@ -86,6 +103,10 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
         playerCurrentEXP = saveData.playerCurrentEXP;
         playerPosition = saveData.playerPosition;
         playerCurrentHP = saveData.playerCurrentHP;
+        roomPositionList = saveData.roomPositionList;
+        roomsMapIndex = saveData.roomsMapIndex;
+        currentSpeed = saveData.currentSpeed;
+        roomEdgePosition = saveData.roomEdgePosition;
     }
     #endregion
 }

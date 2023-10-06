@@ -17,20 +17,24 @@ public class PlayerIdleState : IState
     public void OnEnter()
     {
         //此处填写进入此状态时的相关操作（如：播放此状态的动画，初始化某些数据）
+        if(parameter.animator == null)
+        {
+            Debug.LogError("Miss animator");
+        }
         parameter.animator.Play("idle");
         if(!parameter.attacking)
         {
             var image = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
             parameter.headSpriteRenderer.sprite = image;
 #if UNITY_EDITOR
-           if(image == null) 
-           {
-                Debug.Log("Failed to load the head image.");
-            }
-           else
-            {
-                Debug.Log("Succeed to load the head image");
-            }
+           //if(image == null) 
+           //{
+           //     Debug.Log("Failed to load the head image.");
+           // }
+           //else
+           // {
+           //     Debug.Log("Succeed to load the head image");
+           // }
 #endif
         }
 
