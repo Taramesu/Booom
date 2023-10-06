@@ -34,12 +34,13 @@ public class Door : MonoBehaviour
             var camera = Camera.main;
             camera.GetComponent<ScreenFader>().StartFade();
             roomEdge.transform.position = targetRoom.transform.position;
+            RoomGenerator.Instance.roomEdgePosition = roomEdge.transform.position;
             collision.GetComponent<Transform>().position = target.position + transferOffset;
 
             TimeTools.Instance.PauseGame(0.3f);
 
 #if UNITY_EDITOR
-            Debug.Log("player enter");
+            //Debug.Log("player enter");
 #endif
         }
     }

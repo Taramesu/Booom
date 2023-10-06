@@ -21,14 +21,14 @@ public class PlayerWalkUpState : IState
             var image = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-behind.png");
             parameter.headSpriteRenderer.sprite = image;
 #if UNITY_EDITOR
-            if (image == null)
-            {
-                Debug.Log("Failed to load the head image.");
-            }
-            else
-            {
-                Debug.Log("Succeed to load the head image");
-            }
+            //if (image == null)
+            //{
+            //    Debug.Log("Failed to load the head image.");
+            //}
+            //else
+            //{
+            //    Debug.Log("Succeed to load the head image");
+            //}
 #endif
         }
 

@@ -21,14 +21,14 @@ public class PlayerWalkLeftState : IState
             var image = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-left.png");
             parameter.headSpriteRenderer.sprite = image;
 #if UNITY_EDITOR
-            if (image == null)
-            {
-                Debug.Log("Failed to load the head image.");
-            }
-            else
-            {
-                Debug.Log("Succeed to load the head image");
-            }
+            //if (image == null)
+            //{
+            //    Debug.Log("Failed to load the head image.");
+            //}
+            //else
+            //{
+            //    Debug.Log("Succeed to load the head image");
+            //}
 #endif
         }
 

@@ -89,12 +89,12 @@ public class PlayerFsmManager : MonoBehaviour
 
     private void InitializeData()
     {
-        DataManager.Instance.LoadAll();
-        var data = DataManager.Instance.GetfasdffByID(8);
-        parameter.currentHP = data.HP; 
-        parameter.ATK = data.ATK;
-        parameter.speed = data.speed;
-        parameter.shootRate = data.shootRate;
+        //DataManager.Instance.LoadAll();
+        //var data = DataManager.Instance.GetfasdffByID(8);
+        //parameter.currentHP = data.HP;
+        //parameter.ATK = data.ATK;
+        //parameter.speed = data.speed;
+        //parameter.shootRate = data.shootRate;
 
         parameter.transform = GetComponent<Transform>();
         parameter.animator = transform.Find("Body").GetComponent<Animator>();

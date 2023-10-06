@@ -21,5 +21,7 @@ public class PlayerParameter
 
     public Transform transform;
 
+    public Vector3 currentPosition;
+
     public SpriteRenderer headSpriteRenderer;
 }  

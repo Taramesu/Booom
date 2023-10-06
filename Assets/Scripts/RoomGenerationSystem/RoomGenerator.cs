@@ -15,6 +15,11 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
     public int roomQuantity;
     public GameObject doorPrefabs;
     public GameObject roomEdgePrefab;
+
+    public bool useArchive;
+    public List<Vector3> roomPositionList = new List<Vector3>();
+    public List<Vector2> roomsMapIndex = new List<Vector2>();
+    public Vector2 roomEdgePosition;
     #endregion
 
     #region Room_Position
@@ -26,7 +31,6 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
     private int yRoomIndex;
     #endregion
 
-    //private List<Room> rooms = new List<Room>();
     private List<List<Room>> roomsMap = new List<List<Room>>();
 
     /// <summary>
@@ -34,19 +38,18 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
     /// </summary>
     public void GenerateRooms()
     {
-        //for(int i = 0; i < roomQuantity; i++)
-        //{
-        //    rooms.Add(Instantiate(GetRoomPrefab(roomPrefabName), generatorPoint.position, Quaternion.identity).GetComponent<Room>());
-        //    ChangePointPos();
-        //}
+        if(useArchive)
+        {
+            roomEdgePrefab.transform.position = roomEdgePosition;
+            Debug.Log(roomEdgePosition);
+        }
+        else
+        {
+            roomEdgePrefab.transform.position = new Vector3(0, 0, 0);
+        }
+        
 
-        //rooms[0].GetComponent<SpriteRenderer>().color = Color.green;
-        //rooms[roomQuantity-1].GetComponent<SpriteRenderer>().color = Color.red;
-
-        //foreach(var room in rooms)
-        //{
-        //    room.UpdateRoom(rooms.IndexOf(room));
-        //}
+        generatorPoint.position = new Vector2(0, 0);
 
         //初始化地图网格
         for(int i = 0; i < 2*roomQuantity+2; i++)
@@ -67,6 +70,14 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
         {
             var room = Instantiate(GetRoomPrefab(roomPrefabName), generatorPoint.position, Quaternion.identity).GetComponent<Room>();
             roomsMap[yRoomIndex][xRoomIndex] = room;
+
+            if(useArchive)
+            {
+                generatorPoint.position = roomPositionList[i];
+                xRoomIndex = (int)roomsMapIndex[i].x;
+                yRoomIndex = (int)roomsMapIndex[i].y;
+            }
+            else
             ChangePointPosAndIndex();
         }
 
@@ -150,6 +161,8 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
             }
         }
         while (roomsMap[yRoomIndex][xRoomIndex] != null);
+        roomPositionList.Add(generatorPoint.position);
+        roomsMapIndex.Add(new Vector2(xRoomIndex, yRoomIndex));
     }
 
     GameObject GetRoomPrefab(string roomPrefabName)
