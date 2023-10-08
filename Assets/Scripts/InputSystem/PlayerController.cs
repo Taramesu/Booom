@@ -56,22 +56,38 @@ public class PlayerController : MonoBehaviour
     {
         var currentMoveInput = inputActions.KeyBoard.MoveControl.ReadValue<Vector2>();
         PlayerInputData.Instance.moveVal = currentMoveInput;
-
-        //if (currentMoveInput != Vector2.zero) 
-        //{
-        //    Debug.Log(currentMoveInput);
-        //}
     }
 
     private void GetAttackInput()
     {
         var currentAttackInput = inputActions.KeyBoard.AttackControl.ReadValue<Vector2>();
-        PlayerInputData.Instance.attackVal = currentAttackInput;
 
-        //if (currentAttackInput != Vector2.zero)
-        //{
-        //    Debug.Log(currentAttackInput);
-        //}
+        if(currentAttackInput.x>0.5f)
+        {
+            PlayerInputData.Instance.attackVal = new Vector2(1, 0);
+        }
+        else if(currentAttackInput.x < -0.5f)
+        {
+            PlayerInputData.Instance.attackVal = new Vector2(-1, 0);
+        }
+        else
+        {
+            PlayerInputData.Instance.attackVal = currentAttackInput;
+        }
+
+        if (currentAttackInput.y > 0.5f)
+        {
+            PlayerInputData.Instance.attackVal = new Vector2(0,1);
+        }
+        else if (currentAttackInput.y < -0.5f)
+        {
+            PlayerInputData.Instance.attackVal = new Vector2(0,-1);
+        }
+        else
+        {
+            PlayerInputData.Instance.attackVal = currentAttackInput;
+        }
+
     }
 
     #region CallbackFunction

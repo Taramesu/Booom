@@ -15,10 +15,12 @@ public class Door : MonoBehaviour
     public Vector3 transferOffset;
     public Transform targetRoom;
     public Transform roomEdge;
+
+    private TimeTools timeTools;
     // Start is called before the first frame update
     void Start()
     {
-        
+        timeTools = GetComponent<TimeTools>();
     }
 
     // Update is called once per frame
@@ -37,7 +39,8 @@ public class Door : MonoBehaviour
             RoomGenerator.Instance.roomEdgePosition = roomEdge.transform.position;
             collision.GetComponent<Transform>().position = target.position + transferOffset;
 
-            TimeTools.Instance.PauseGame(0.3f);
+            
+            timeTools.PauseGame(0.3f);
 
 #if UNITY_EDITOR
             //Debug.Log("player enter");

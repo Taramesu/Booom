@@ -69,4 +69,20 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
             return default;
         }
     }
+
+    public GameObject GetBulletPrefab(string BulletPrefabName)
+    {
+        var path = "Assets/Prefabs/Bullets/" + BulletPrefabName + ".prefab";
+        try
+        {
+            return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+        }
+        catch (System.Exception e)
+        {
+#if UNITY_EDITOR
+            Debug.Log($"Failed to load bullet prefab at {path}. \n{e}");
+#endif
+            return default;
+        }
+    }
 }
