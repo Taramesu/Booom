@@ -19,5 +19,17 @@ public class MainMenuPanel : BasePanel
         {
             GameRoot.Instance.SwitchScene("GameScene");
         });
+        UITool.GetOrAddComponentInChildren<Button>("Btn_Continue", panel).onClick.AddListener(() =>
+        {
+            
+        });
+        UITool.GetOrAddComponentInChildren<Button>("Btn_Setting", panel).onClick.AddListener(() =>
+        {
+            PanelManager.Instance.Push(new MainMenuSettingPanel());
+        });
+        UITool.GetOrAddComponentInChildren<Button>("Btn_Exit", panel).onClick.AddListener(() =>
+        {
+            PanelManager.Instance.Push(new PausePanel());
+        });
     }
 }
