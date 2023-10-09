@@ -15,18 +15,23 @@ public class GameManager : MonoBehaviour
     private void InitializeRoomData()
     {
         //设定数据
-        RoomGenerator.Instance.roomPrefabName = "Room1";
-        RoomGenerator.Instance.roomQuantity = 7;
-        RoomGenerator.Instance.doorPrefabs = PathAndPrefabManager.Instance.GetDoorPrefab("door");
-        RoomGenerator.Instance.roomEdgePrefab = PathAndPrefabManager.Instance.GetRoomEdgePrefab("RoomEdge");
-        RoomGenerator.Instance.useArchive = ArchiveSystem.Instance.useArchive;
+        var generator = RoomGenerator.Instance;
+        generator.roomPrefabName = "Room1";
+        generator.beginRoomPrefabName = "BeginRoom";
+        generator.monsterRoomPrefabName = "MonsterRoom";
+        generator.bossRoomPrefabName = "BossRoom";
 
-        RoomGenerator.Instance.generatorPoint = PathAndPrefabManager.Instance.GetRoomSpawnPointPrefab("spawnPoint").transform;
-        RoomGenerator.Instance.xOffset = 40;
-        RoomGenerator.Instance.yOffset = 20;
-        RoomGenerator.Instance.roomLayer = LayerMask.GetMask("Room");
+        generator.roomQuantity = 7;
+        generator.doorPrefabs = PathAndPrefabManager.Instance.GetDoorPrefab("door");
+        generator.roomEdgePrefab = PathAndPrefabManager.Instance.GetRoomEdgePrefab("RoomEdge");
+        generator.useArchive = ArchiveSystem.Instance.useArchive;
+
+        generator.generatorPoint = PathAndPrefabManager.Instance.GetRoomSpawnPointPrefab("spawnPoint").transform;
+        generator.xOffset = 40;
+        generator.yOffset = 20;
+        generator.roomLayer = LayerMask.GetMask("Room");
         //开始生成
-        RoomGenerator.Instance.GenerateRooms();
+        generator.GenerateRooms();
     }
 
     private void InitializeCameraData()

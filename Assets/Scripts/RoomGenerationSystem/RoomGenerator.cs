@@ -12,6 +12,9 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
     //以下参数需要初始化
     #region Room_Infomation
     public string roomPrefabName;
+    public string beginRoomPrefabName;
+    public string monsterRoomPrefabName;
+    public string bossRoomPrefabName;
     public int roomQuantity;
     public GameObject doorPrefabs;
     public GameObject roomEdgePrefab;
@@ -68,7 +71,20 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
         //生成地图房间数据
         for(int i = 0; i < roomQuantity; i++)
         {
-            var room = Instantiate(GetRoomPrefab(roomPrefabName), generatorPoint.position, Quaternion.identity).GetComponent<Room>();
+            GameObject roomPrefab;
+            if(i == 0)
+            {
+                roomPrefab = GetRoomPrefab(beginRoomPrefabName);
+            }
+            else if(i == roomQuantity-1)
+            {
+                roomPrefab = GetRoomPrefab(bossRoomPrefabName);
+            }
+            else
+            {
+                roomPrefab = GetRoomPrefab(monsterRoomPrefabName);
+            }
+            var room = Instantiate(roomPrefab, generatorPoint.position, Quaternion.identity).GetComponent<Room>();
             roomsMap[yRoomIndex][xRoomIndex] = room;
 
             if(useArchive)
@@ -98,6 +114,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.transferOffset = new Vector3(0, -1.5f, 0);
                         door.targetRoom = roomsMap[i - 1][j].transform;
                         door.roomEdge = roomEdgePrefab.transform;
+                        door.InitialzeData();
                     }
                     if (roomsMap[i + 1][j] != null)
                     {
@@ -108,26 +125,29 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.transferOffset = new Vector3(0, 1.5f, 0);
                         door.targetRoom = roomsMap[i + 1][j].transform;
                         door.roomEdge = roomEdgePrefab.transform;
+                        door.InitialzeData();
                     }
                     if (roomsMap[i][j - 1] != null)
                     {
-                        var door = Instantiate(doorPrefabs, currentRoom.rightDoorPoint.position, Quaternion.identity).GetComponent<Door>();
+                        var door = Instantiate(doorPrefabs, currentRoom.leftDoorPoint.position, Quaternion.identity).GetComponent<Door>();
                         door.nextRoomType = roomsMap[i][j - 1].type;
-                        door.position = DoorPos.Right;
-                        door.target = roomsMap[i][j - 1].leftDoorPoint;
+                        door.position = DoorPos.Left;
+                        door.target = roomsMap[i][j - 1].rightDoorPoint;
                         door.transferOffset = new Vector3(-1.5f, 0, 0);
                         door.targetRoom = roomsMap[i][j - 1].transform;
                         door.roomEdge = roomEdgePrefab.transform;
+                        door.InitialzeData();
                     }
                     if (roomsMap[i ][j + 1] != null)
                     {
-                        var door = Instantiate(doorPrefabs, currentRoom.leftDoorPoint.position, Quaternion.identity).GetComponent<Door>();
+                        var door = Instantiate(doorPrefabs, currentRoom.rightDoorPoint.position, Quaternion.identity).GetComponent<Door>();
                         door.nextRoomType = roomsMap[i][j + 1].type;
-                        door.position = DoorPos.Left;
-                        door.target = roomsMap[i][j + 1].rightDoorPoint;
+                        door.position = DoorPos.Right;
+                        door.target = roomsMap[i][j + 1].leftDoorPoint;
                         door.transferOffset = new Vector3(1.5f, 0, 0);
                         door.targetRoom = roomsMap[i][j + 1].transform;
                         door.roomEdge = roomEdgePrefab.transform;
+                        door.InitialzeData();
                     }
                 }
             }

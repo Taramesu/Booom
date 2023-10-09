@@ -53,6 +53,7 @@ public class Bullet : MonoBehaviour
                 //调用对象生命值扣除函数
 
                 gameObject.SetActive(false);
+                Destroy(gameObject);
             }
         }
         else if (shooter == "Enemy")
@@ -62,12 +63,14 @@ public class Bullet : MonoBehaviour
                 //调用对象生命值扣除函数
 
                 gameObject.SetActive(false);
+                Destroy(gameObject);
             }
         }
             
         if(collision.CompareTag("Block"))
         {
             gameObject.SetActive(false);
+            Destroy(gameObject);
         }
 
         if (collision.CompareTag("Wall"))
@@ -76,6 +79,7 @@ public class Bullet : MonoBehaviour
             Debug.Log("touch Wall");
 #endif
             gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

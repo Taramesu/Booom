@@ -19,7 +19,10 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        //text = gameObject.AddComponent<Text>();
+        //leftDoorPoint = transform.Find("LeftDoorPoint").GetComponent<Transform>();
+        //rightDoorPoint = transform.Find("RightDoorPoint").GetComponent<Transform>();
+        //topDoorPoint = transform.Find("TopDoorPoint").GetComponent<Transform>();
+        //bottomDoorPoint = transform.Find("BottomDoorPoint").GetComponent<Transform>();
     }
 
     public void UpdateRoom(int order)
