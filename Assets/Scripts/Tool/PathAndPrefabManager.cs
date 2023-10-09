@@ -85,4 +85,10 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
             return default;
         }
     }
+
+    public string GetDoorSpritePath(string spriteName)
+    {
+        var path = "Assets/ArtAssets/Door/" + spriteName + ".png";
+        return path;
+    }
 }

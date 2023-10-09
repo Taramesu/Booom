@@ -30,7 +30,7 @@ public class ArchiveSystem : Singleton2Manager<ArchiveSystem>
         manage.roomPositionList = RoomGenerator.Instance.roomPositionList;
         manage.roomsMapIndex = RoomGenerator.Instance.roomsMapIndex;
         manage.roomEdgePosition = RoomGenerator.Instance.roomEdgePosition;
-
+        
         var parameter = PlayerGenerator.Instance.fsmManager.parameter;
         manage.playerCurrentHP = parameter.currentHP;
         manage.playerPosition = parameter.transform.position;
