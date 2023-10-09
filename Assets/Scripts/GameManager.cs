@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private void Start()
     {
-        ArchiveSystem.Instance.LoadArchive();
+        //ArchiveSystem.Instance.LoadArchive();
         InitializeRoomData();
         InitializePlayerData();
         InitializeCameraData();
