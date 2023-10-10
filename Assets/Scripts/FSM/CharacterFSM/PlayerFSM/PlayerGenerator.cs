@@ -32,12 +32,7 @@ public class PlayerGenerator : Singleton2Manager<PlayerGenerator>
         //判断是否使用存档数据
         if (ArchiveSystem.Instance.useArchive)
         {
-            fsmManager.parameter = archiveData;
-            //Debug.Log(parameter.speed);
-            //parameter.transform = player.GetComponent<Transform>();
-            //parameter.animator = player.transform.Find("Body").GetComponent<Animator>();
-            //parameter.headSpriteRenderer = player.transform.Find("Head").GetComponent<SpriteRenderer>();
-            //parameter.headSpritePath = "Assets/ArtAssets/Player/head/";
+            fsmManager.parameter = archiveData;      
         }
         else
         {
@@ -47,11 +42,6 @@ public class PlayerGenerator : Singleton2Manager<PlayerGenerator>
             parameter.ATK = data.ATK;
             parameter.speed = data.speed;
             parameter.shootRate = data.shootRate;
-
-            //parameter.transform = player.GetComponent<Transform>();
-            //parameter.animator = player.transform.Find("Body").GetComponent<Animator>();
-            //parameter.headSpriteRenderer = player.transform.Find("Head").GetComponent<SpriteRenderer>();
-            //parameter.headSpritePath = "Assets/ArtAssets/Player/head/";
         }
     }
 }

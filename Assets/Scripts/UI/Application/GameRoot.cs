@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 //游戏的根管理器
@@ -23,7 +26,7 @@ public class GameRoot : MonoBehaviour
 
     public void SwitchScene(string sceneName)
     {
-        StartCoroutine(Delay(sceneName));
+        StartCoroutine(Delay(sceneName));      
     }
 
     private IEnumerator Delay(string sceneName)
@@ -33,6 +36,5 @@ public class GameRoot : MonoBehaviour
         {
             yield return new WaitForSeconds(3.0f);
         }
-        
     }
 }

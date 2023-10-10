@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class test : MonoBehaviour
 {
-    
+    public CardPool cardPool;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,12 +15,15 @@ public class test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-#if UNITY_EDITOR
-        //Debug.Log(PlayerInputData.Instance.moveVal);
-#endif
-        if(Input.GetKeyDown(KeyCode.J))
+
+        //if(Input.GetKeyDown(KeyCode.J))
+        //{
+        //    ArchiveSystem.Instance.AutoSave();
+        //}
+
+        if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            ArchiveSystem.Instance.AutoSave();
+            cardPool.GetCurrentShape("Card_1");
         }
     }
 }
