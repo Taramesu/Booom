@@ -86,6 +86,20 @@ public class SaveSystem : Singleton2Manager<SaveSystem>
 #endif
         }
     }
-    
+
+    #endregion
+
+    #region Check
+    public bool CheckSaveFile(string saveFileName)
+    {
+        var path = Path.Combine(Application.persistentDataPath, saveFileName);
+        
+        if(File.Exists(path))
+        {
+            return true;
+        }
+        else
+        { return false; }
+    }
     #endregion
 }
