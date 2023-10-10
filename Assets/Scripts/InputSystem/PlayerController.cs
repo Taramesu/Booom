@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UIFrameWork;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
+    
     #region CallbackFunction
     public void OnDropBoomStarted(InputAction.CallbackContext value)
     {
@@ -149,6 +150,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnPauseGameCanceled(InputAction.CallbackContext value)
     {
+        PanelManager.Instance.Clear();
+        PanelManager.Instance.Push(new SettingPanel());
         PlayerInputData.Instance.pauseGameVal = false;
     }
 

@@ -19,7 +19,7 @@ public class Door : MonoBehaviour
     public bool isOpen;
 
     private TimeTools timeTools;
-    private SpriteRenderer renderer;
+    private new SpriteRenderer renderer;
     private string doorName;
     // Start is called before the first frame update
     void Start()

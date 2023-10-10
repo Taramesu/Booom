@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameScene : SceneBase
 {
-    private static readonly string sceneName = "Scenes/GameScene";
+    private static readonly string sceneName = "GameScene";
     public override void OnEnter()
     {
         if (SceneManager.GetActiveScene().name != sceneName)

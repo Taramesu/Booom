@@ -44,7 +44,6 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
         if(useArchive)
         {
             roomEdgePrefab.transform.position = roomEdgePosition;
-            Debug.Log(roomEdgePosition);
         }
         else
         {

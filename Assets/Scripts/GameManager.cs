@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private void Start()
     {
-        //ArchiveSystem.Instance.LoadArchive();
+        // ArchiveSystem.Instance.LoadArchive();
         InitializeRoomData();
         InitializePlayerData();
         InitializeCameraData();
@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeRoomData()
     {
-        //Éè¶¨Êý¾Ý
+        //ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½
         var generator = RoomGenerator.Instance;
         generator.roomPrefabName = "Room1";
         generator.beginRoomPrefabName = "BeginRoom";
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         generator.xOffset = 40;
         generator.yOffset = 20;
         generator.roomLayer = LayerMask.GetMask("Room");
-        //¿ªÊ¼Éú³É
+        //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
         generator.GenerateRooms();
     }
 
@@ -38,9 +38,9 @@ public class GameManager : MonoBehaviour
     {
         var virtualCamera = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
         var confiner = virtualCamera.GetComponent<CinemachineConfiner2D>();
-        //ÉèÖÃ¾µÍ·ÒÆ¶¯·¶Î§
+        //ï¿½ï¿½ï¿½Ã¾ï¿½Í·ï¿½Æ¶ï¿½ï¿½ï¿½Î§
         confiner.m_BoundingShape2D = RoomGenerator.Instance.roomEdgePrefab.GetComponent<PolygonCollider2D>();
-        //ÉèÖÃ¾µÍ·¸úËæ¶ÔÏó
+        //ï¿½ï¿½ï¿½Ã¾ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         virtualCamera.Follow = PlayerGenerator.Instance.playerTransform;
     }
 
