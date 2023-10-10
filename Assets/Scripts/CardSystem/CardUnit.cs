@@ -14,7 +14,7 @@ public class CardUnit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Block"))
+        if (collision.CompareTag("Block")||collision.CompareTag("PoolWall"))
         {
             couldPutDown = false;
         }
@@ -22,7 +22,7 @@ public class CardUnit : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Block"))
+        if (collision.CompareTag("Block") || collision.CompareTag("PoolWall"))
         {
             couldPutDown = false;
         }
@@ -30,7 +30,7 @@ public class CardUnit : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Block"))
+        if (collision.CompareTag("Block") || collision.CompareTag("PoolWall"))
         {
             couldPutDown = true;
         }

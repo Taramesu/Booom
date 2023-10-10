@@ -7,6 +7,10 @@ public class PlayerParameter
 {
     public float currentHP;
 
+    public float currentMaxHP;
+
+    public int level;
+
     public float ATK;
 
     public float speed;

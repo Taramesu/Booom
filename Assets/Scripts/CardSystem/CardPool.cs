@@ -18,7 +18,7 @@ public class CardPool : MonoBehaviour
     {
         InitializeGrid(offset);
 
-        //test
+        //测试代码，实际请需要在卡池中放置时再调用
         GetCurrentShape("Card_1");
 
         gridXOffset = 5;
@@ -32,9 +32,14 @@ public class CardPool : MonoBehaviour
     {
         ControlShape();
         PutShapeDown();
-        //ShapeTips();
+        DeleteShape();
     }
 
+    #region API_FOR_UI
+    /// <summary>
+    /// 输入卡牌名字为卡池送入选中卡牌
+    /// </summary>
+    /// <param name="cardName"></param>
     public void GetCurrentShape(string cardName)
     {
         currentShape = Instantiate(PathAndPrefabManager.Instance.GetCardPrefab(cardName), poolGrid[gridYOffset][gridXOffset].position, Quaternion.identity);
@@ -45,60 +50,51 @@ public class CardPool : MonoBehaviour
         //}
     }
 
-    private void CheckRowAndColumn()
+    /// <summary>
+    /// 调用一次补齐一个空格，未设置按键，请使用UI按钮响应
+    /// </summary>
+    public void CompleteSpace()
     {
-        for (int y = 0; y <= 9; y++)
-        {
-            for (int x = 0; x<= 9; x++)
-            {
-                var pos = poolGrid[y][x].position;
-                Collider2D collider = Physics2D.OverlapPoint(pos);
-                if(collider != null && collider.CompareTag("Block"))
-                {
-#if UNITY_EDITOR
-                    //Debug.Log("there has block");
-#endif
-                }
-                else
-                {
-                    break;
-                }
-                couldDeleteShapeNumber++;
-#if UNITY_EDITOR
-                //Debug.Log("full row!");
-#endif
-            }
-        }
+        GetCurrentShape("Card_0");
+    }
 
-        for (int x = 0; x <= 9; x++)
+    /// <summary>
+    /// 鼠标点击消除卡池卡牌
+    /// </summary>
+    public void DeleteShape()
+    {
+        if (couldDeleteShapeNumber > 0)
         {
-            for (int y = 0; y <= 9; y++)
+            if (Input.GetMouseButtonDown(0))
             {
-                var pos = poolGrid[y][x].position;
-                Collider2D collider = Physics2D.OverlapPoint(pos);
-                if (collider != null && collider.CompareTag("Block"))
+                Vector3 mousePosition = Input.mousePosition;
+                Vector2 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                Collider2D clickedObject = Physics2D.OverlapPoint(worldPosition);
+
+                if (clickedObject != null && clickedObject.CompareTag("Block"))
                 {
-#if UNITY_EDITOR
-                    //Debug.Log("there has block");
-#endif
+                    //Debug.Log("Clicked object: " + clickedObject.name);
+
+                    // 获取到点击物体的父物体
+                    Transform parentObject = clickedObject.transform.parent;
+
+                    // 销毁父物体，这样子物体就会一起被销毁
+                    Destroy(parentObject.gameObject);
+
+                    couldDeleteShapeNumber--;
                 }
-                else
-                {
-                    break;
-                }
-                couldDeleteShapeNumber++;
-#if UNITY_EDITOR
-                //Debug.Log("full Column");
-#endif
             }
         }
     }
-
-    public void PutShapeDown()
+    #endregion
+    /// <summary>
+    /// 输入空格放置当前选中卡牌
+    /// </summary>
+    private void PutShapeDown()
     {
-        if(currentShapeCoubeBePutDown)
+        if (currentShapeCoubeBePutDown)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 //foreach (SpriteRenderer sr in currentShapeRendererList)
                 //{
@@ -111,6 +107,107 @@ public class CardPool : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 使用JKLI控制当前准备放入卡牌的移动
+    /// </summary>
+    private void ControlShape()
+    {
+        if (currentShape == null)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {   
+            if (gridXOffset > 0)
+            {
+                gridXOffset--;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (gridYOffset > 0)
+            {
+                gridYOffset--;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (gridXOffset < 9)
+            {
+                gridXOffset++;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (gridYOffset < 9)
+            {
+                gridYOffset++;
+            }
+        }
+
+        MoveShape();
+    }
+
+
+    private void CheckRowAndColumn()
+    {
+        for (int y = 0; y <= 9; y++)
+        {
+            bool flag = true;
+            for (int x = 0; x<= 9; x++)
+            {
+                var pos = poolGrid[y][x].position;
+
+                Collider2D collider = Physics2D.OverlapPoint(pos);
+                
+                if(collider != null && collider.CompareTag("Block"))
+                {
+
+                }
+                else
+                {
+                    flag = false;
+                    break;
+                }      
+            }
+            if(flag)
+            {
+                couldDeleteShapeNumber++;
+                PlayerGenerator.Instance.fsmManager.parameter.level++;
+            } 
+        }
+
+
+        for (int x = 0; x <= 9; x++)
+        {
+            bool flag = true;
+            for (int y = 0; y <= 9; y++)
+            {
+                var pos = poolGrid[y][x].position;
+
+                Collider2D collider = Physics2D.OverlapPoint(pos);
+
+                if (collider != null && collider.CompareTag("Block"))
+                {
+
+                }
+                else
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                couldDeleteShapeNumber++;
+                PlayerGenerator.Instance.fsmManager.parameter.level++;
+            }
+        }
+    }
+
+    
 
 //    private void ShapeTips()
 //    {
@@ -146,44 +243,7 @@ public class CardPool : MonoBehaviour
 //        }
 //    }
 
-    public void ControlShape()
-    {
-        if (currentShape == null)
-        {
-            return;
-        }     
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            if (gridXOffset > 0)
-            {
-                gridXOffset--;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            if (gridYOffset > 0)
-            {
-                gridYOffset--;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.L))
-        {
-            if (gridXOffset < 9)
-            {
-                gridXOffset++;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (gridYOffset < 9)
-            {
-                gridYOffset++;
-            }
-        }
-
-        MoveShape();
-    }
+    
 
     private void MoveShape()
     {
