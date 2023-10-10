@@ -32,6 +32,7 @@ public class CharacterPanel : BasePanel
         UITool.GetOrAddComponentInChildren<Button>("Btn_Exit", panel).onClick.AddListener(() =>
         {
             PanelManager.Instance.Pop();
+            PanelManager.Instance.Push(new ExitPanel());
         });
     }
 }
