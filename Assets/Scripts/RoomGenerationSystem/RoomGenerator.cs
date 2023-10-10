@@ -35,6 +35,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
     #endregion
 
     private List<List<Room>> roomsMap = new List<List<Room>>();
+    private List<Room> roomList = new List<Room>();
 
     /// <summary>
     /// 房间生成API
@@ -83,8 +84,11 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
             {
                 roomPrefab = GetRoomPrefab(monsterRoomPrefabName);
             }
+
             var room = Instantiate(roomPrefab, generatorPoint.position, Quaternion.identity).GetComponent<Room>();
+            room.roomID = i;
             roomsMap[yRoomIndex][xRoomIndex] = room;
+            roomList.Add(room);
 
             if(useArchive)
             {
@@ -113,6 +117,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.transferOffset = new Vector3(0, -1.5f, 0);
                         door.targetRoom = roomsMap[i - 1][j].transform;
                         door.roomEdge = roomEdgePrefab.transform;
+                        door.targetRoomData = roomsMap[i - 1][j].GetComponent<Room>();
                         door.InitialzeData();
                     }
                     if (roomsMap[i + 1][j] != null)
@@ -124,6 +129,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.transferOffset = new Vector3(0, 1.5f, 0);
                         door.targetRoom = roomsMap[i + 1][j].transform;
                         door.roomEdge = roomEdgePrefab.transform;
+                        door.targetRoomData = roomsMap[i + 1][j].GetComponent<Room>();
                         door.InitialzeData();
                     }
                     if (roomsMap[i][j - 1] != null)
@@ -135,6 +141,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.transferOffset = new Vector3(-1.5f, 0, 0);
                         door.targetRoom = roomsMap[i][j - 1].transform;
                         door.roomEdge = roomEdgePrefab.transform;
+                        door.targetRoomData = roomsMap[i][j - 1].GetComponent<Room>();
                         door.InitialzeData();
                     }
                     if (roomsMap[i ][j + 1] != null)
@@ -146,6 +153,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.transferOffset = new Vector3(1.5f, 0, 0);
                         door.targetRoom = roomsMap[i][j + 1].transform;
                         door.roomEdge = roomEdgePrefab.transform;
+                        door.targetRoomData = roomsMap[i][j + 1].GetComponent<Room>();
                         door.InitialzeData();
                     }
                 }
@@ -199,5 +207,21 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
 #endif
             return default;
         }
+    }
+
+    public Room GetPlayerCurrentRoom(int id)
+    {
+        foreach (var room in roomList) 
+        {
+            if(room.roomID == id)
+            {
+                return room;
+            }
+        }
+
+#if UNITY_EDITOR
+        Debug.Log($"Can not find {id}_room");
+#endif
+        return default;
     }
 }

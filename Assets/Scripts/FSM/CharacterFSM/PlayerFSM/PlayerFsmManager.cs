@@ -160,5 +160,10 @@ public class PlayerFsmManager : MonoBehaviour
         parameter.currentHP -= damage;
     }
 
+    public Room GetCurrentRoom()
+    {
+        return RoomGenerator.Instance.GetPlayerCurrentRoom(parameter.currentRoomID);
+    }
+
     #endregion
 }
