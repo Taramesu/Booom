@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class ArchiveSystem : Singleton2Manager<ArchiveSystem>
@@ -22,7 +23,8 @@ public class ArchiveSystem : Singleton2Manager<ArchiveSystem>
     {
         PlayerDataManager.Instance.Load();
         LoadData();
-        useArchive = true; 
+        useArchive = true;
+        PlayerDataManager.Instance.isFirstGame = false;
     }
 
     /// <summary>
@@ -31,13 +33,14 @@ public class ArchiveSystem : Singleton2Manager<ArchiveSystem>
     public void NewArchive()
     {
         useArchive = false;
+        PlayerDataManager.Instance.isFirstGame = true;
     }
 
     /// <summary>
     /// ºÃ–¯”Œœ∑ºÏ≤‚ «∑Ò¥Ê‘⁄¥Êµµ
     /// </summary>
     /// <returns></returns>
-    public bool isArchiveExist()
+    public bool IsArchiveExist()
     {
         return PlayerDataManager.Instance.Check();
     }
@@ -51,8 +54,11 @@ public class ArchiveSystem : Singleton2Manager<ArchiveSystem>
         
         var parameter = PlayerGenerator.Instance.fsmManager.parameter;
         manage.playerCurrentHP = parameter.currentHP;
+        manage.playerCurrentMaxHP = parameter.currentMaxHP;
+        manage.playerLevel = parameter.level;
         manage.playerPosition = parameter.transform.position;
         manage.currentSpeed = parameter.speed;
+        manage.currentRoomID = parameter.currentRoomID;
     }
 
     private void LoadData()
@@ -64,8 +70,11 @@ public class ArchiveSystem : Singleton2Manager<ArchiveSystem>
 
         var parameter = new PlayerParameter();
         parameter.currentHP = manage.playerCurrentHP;
+        parameter.currentMaxHP = manage.playerCurrentMaxHP;
+        parameter.level = manage.playerLevel;
         parameter.currentPosition = manage.playerPosition;
         parameter.speed = manage.currentSpeed;
+        parameter.currentRoomID = manage.currentRoomID;
         PlayerGenerator.Instance.GetArchiveData(parameter);
     }
 }

@@ -113,4 +113,20 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
             return default;
         }
     }
+
+    public GameObject GetCardPoolPrefab(string cardPoolName)
+    {
+        var path = "Assets/Prefabs/Cards/" + cardPoolName + ".prefab";
+        try
+        {
+            return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+        }
+        catch (System.Exception e)
+        {
+#if UNITY_EDITOR
+            Debug.Log($"Failed to load cardPool prefab at {path}. \n{e}");
+#endif
+            return default;
+        }
+    }
 }

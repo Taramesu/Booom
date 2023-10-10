@@ -39,6 +39,7 @@ public class PlayerGenerator : Singleton2Manager<PlayerGenerator>
             DataManager.Instance.LoadAll();
             var data = DataManager.Instance.GetfasdffByID(8);
             parameter.currentHP = data.HP;
+            parameter.currentMaxHP = data.HP;
             parameter.ATK = data.ATK;
             parameter.speed = data.speed;
             parameter.shootRate = data.shootRate;
