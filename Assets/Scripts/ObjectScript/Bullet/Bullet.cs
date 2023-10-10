@@ -61,7 +61,7 @@ public class Bullet : MonoBehaviour
             if (collision.CompareTag("Player"))
             {
                 //调用对象生命值扣除函数
-
+                collision.GetComponent<PlayerFsmManager>().GetDamage(damage);
                 gameObject.SetActive(false);
                 Destroy(gameObject);
             }
