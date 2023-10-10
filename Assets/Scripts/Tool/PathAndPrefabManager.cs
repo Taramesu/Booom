@@ -91,4 +91,10 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
         var path = "Assets/ArtAssets/Door/" + spriteName + ".png";
         return path;
     }
+
+    public string GetCardSpritePath(string spriteName)
+    {
+        var path = "Assets/ArtAssets/CardShape/" + spriteName + ".png";
+        return path;
+    }
 }

@@ -6,22 +6,40 @@ public class ArchiveSystem : Singleton2Manager<ArchiveSystem>
 {
     public bool useArchive;
 
+    /// <summary>
+    /// 自动存档
+    /// </summary>
     public void AutoSave()
     {
         SaveData();
         PlayerDataManager.Instance.Save();
     }
 
-   public void LoadArchive()
+    /// <summary>
+    /// 继续游戏读取存档
+    /// </summary>
+    public void LoadArchive()
     {
         PlayerDataManager.Instance.Load();
         LoadData();
         useArchive = true; 
     }
 
+    /// <summary>
+    /// 新游戏建立新存档
+    /// </summary>
     public void NewArchive()
     {
         useArchive = false;
+    }
+
+    /// <summary>
+    /// 继续游戏检测是否存在存档
+    /// </summary>
+    /// <returns></returns>
+    public bool isArchiveExist()
+    {
+        return PlayerDataManager.Instance.Check();
     }
 
     private void SaveData()

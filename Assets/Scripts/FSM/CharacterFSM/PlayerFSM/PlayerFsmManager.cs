@@ -34,21 +34,11 @@ public class PlayerFsmManager : MonoBehaviour
         TransitionState(PlayerST.Idle);//选择一个初始状态并在运行初始时转入（一般为Idle状态）
     }
 
-    private void OnEnable()
-    {
-      
-    }
-
     // 运行当前子状态的更新函数实现当前状态的实时更新
     void Update()
     {
         currentState.OnUpdate();
         OtherOperationManage();
-    }
-
-    private void OnDisable()
-    {
-        
     }
 
     //状态转换方法
@@ -164,6 +154,11 @@ public class PlayerFsmManager : MonoBehaviour
     }
 
     public event Action HeadSynchronize;
+
+    public void GetDamage(float damage)
+    {
+        parameter.currentHP -= damage;
+    }
 
     #endregion
 }
