@@ -29,7 +29,7 @@ public class SettingPanel : BasePanel
         });
         UITool.GetOrAddComponentInChildren<Button>("Btn_Exit", panel).onClick.AddListener(() =>
         {
-            PanelManager.Instance.Pop();
+            PanelManager.Instance.Push(new ExitPanel());
         });
     }
 }
