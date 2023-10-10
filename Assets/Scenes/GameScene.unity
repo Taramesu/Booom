@@ -283,6 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPool: {fileID: 2056831747}
+  playerFsmManager: {fileID: 0}
 --- !u!114 &272265778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1025,6 +1026,10 @@ PrefabInstance:
     - target: {fileID: 2883407531215512986, guid: c5623db032b355447b331f91732e0735, type: 3}
       propertyPath: m_Name
       value: CardPool
+      objectReference: {fileID: 0}
+    - target: {fileID: 2883407531215512986, guid: c5623db032b355447b331f91732e0735, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2883407531215512991, guid: c5623db032b355447b331f91732e0735, type: 3}
       propertyPath: m_RootOrder
