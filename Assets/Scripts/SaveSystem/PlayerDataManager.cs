@@ -42,7 +42,7 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
     /// <summary>
     /// 外部调用存档读档API
     /// </summary>
-    #region API_S&L_DELETE
+    #region API_S&L_DELETE_CHECK
     public void Save()
     {
         SaveByJson();
@@ -58,9 +58,14 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
         DeleteSaveFile();
     }
 
+    public bool Check()
+    {
+        return CheckSaveFile();
+    }
+
     #endregion
 
-    #region JSON_S&L_DELETE
+    #region JSON_S&L_DELETE_CHECK
 
     void SaveByJson()
     {
@@ -76,6 +81,11 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
     void DeleteSaveFile()
     {
         SaveSystem.Instance.DeleteSaveFile(PLAYER_DATA_FILE_NAME);
+    }
+
+    bool CheckSaveFile()
+    {
+        return SaveSystem.Instance.CheckSaveFile(PLAYER_DATA_FILE_NAME);
     }
 
     #endregion
