@@ -3,6 +3,7 @@ using Parameter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StateType;
 
 //Ð¡¹ÖSkeleton´ý»ú×´Ì¬
 public class SkeletonIdleState : IState
@@ -36,6 +37,8 @@ public class SkeletonIdleState : IState
 
     public void OnUpdate()
     {
+
+        manager.TransitionState(SkeletonST.Run);
 
     }
 }

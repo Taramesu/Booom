@@ -18,13 +18,6 @@ namespace FsmManager
 
         public SkeletonParameter parameter = new SkeletonParameter();
 
-        private Seeker seeker;
-
-        public Pathfinding.Path path;
-
-        public float nextWaypointDistance = 3;
-        
-        private int currentWaypoint = 0;
 
 
         void Start()
@@ -44,31 +37,14 @@ namespace FsmManager
         void Update()
         {
 
-            parameter.targetPos = GameObject.Find("Player(Clone)").GetComponent<Transform>().position;
-
-            Debug.Log(parameter.transform.position - parameter.targetPos);
-
-            seeker.StartPath(parameter.transform.position,parameter.targetPos);
-            if (path == null)
-            {
-                return;
-            }
-
-            if (currentWaypoint >= path.vectorPath.Count)
-            {
-                Debug.Log("路径搜索结束");
-                return;
-            }
-
-            
-
-            seeker.StartPath(parameter.transform.position, parameter.targetPos, OnPathComplete);
+            currentState.OnUpdate();
+            //seeker.StartPath(parameter.transform.position, parameter.targetPos, OnPathComplete);
 
         }
 
         public void TransitionState(SkeletonST type)
         {
-            if( currentState == null)
+            if( currentState != null)
             {
                 currentState.OnExit();
             }
@@ -90,18 +66,22 @@ namespace FsmManager
 
             parameter.transform = GetComponent<Transform>();
             parameter.animator = transform.Find("Skeleton").GetComponent<Animator>();
-            seeker = GetComponent<Seeker>();
-            seeker.pathCallback += OnPathComplete;
+            parameter.seeker = GetComponent<Seeker>();
+            parameter.seeker.pathCallback += OnPathComplete;
         }
 
         private void OnPathComplete(Pathfinding.Path p)
         {
             if (!p.error)
             {
-                path = p;
-                currentWaypoint = 0;
+                parameter.path = p;
+                parameter.currentWaypoint = 0;
             }
-            Debug.Log("发现这个路线" + p.error);
+        }
+
+        public void GetDamege(int damege)
+        {
+            parameter.currentHP -= damege;
         }
 
     }

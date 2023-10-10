@@ -16,6 +16,14 @@ namespace Parameter
 
         public float speedMulti;
 
+        public Seeker seeker;
+
+        public Path path;
+
+        public int currentWaypoint = 0;
+
+        public Direction direction;
+
         public Vector3 targetPos;
 
         public Animator animator;
