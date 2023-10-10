@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScene : SceneBase
 {
-    private static readonly string sceneName = "Scenes/MainMenuScene";
+    private static readonly string sceneName = "MainMenuScene";
     public override void OnEnter()
     {
         if(SceneManager.GetActiveScene().name!=sceneName)
