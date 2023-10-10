@@ -1,4 +1,5 @@
 
+using Pathfinding;
 using UnityEngine;
 
 namespace Parameter
@@ -12,6 +13,12 @@ namespace Parameter
         public float speed;
 
         public float shootRate;
+
+        public Seeker seeker;
+
+        public Path path;
+
+        public int currentWaypoint = 0;
 
         public Vector3 targetPos;
 

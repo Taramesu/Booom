@@ -21,10 +21,11 @@ public class SkeletonIdleState : IState
     public void OnEnter()
     {
 
-        if(parameter.animator != null)
+        if(parameter.animator == null)
         {
             Debug.LogError("Miss animator");
         }
+
         parameter.animator.Play("Idle");
 
 

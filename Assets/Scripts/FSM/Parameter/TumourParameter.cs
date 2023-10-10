@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,12 @@ namespace Parameter
         public float speed;
 
         public float criticalMulti;
+
+        public Seeker seeker;
+
+        public Path path;
+
+        public int currentWaypoint = 0;
 
         public Vector3 targetPos;
 

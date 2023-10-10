@@ -3,6 +3,7 @@ using Parameter;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StateType;
 
 //Ð¡¹ÖFly¿Õ×´Ì¬
 public class FlyIdleState : IState
@@ -20,6 +21,13 @@ public class FlyIdleState : IState
     public void OnEnter()
     {
 
+        if (parameter.animator == null)
+        {
+            Debug.LogError("Miss animator");
+        }
+
+        parameter.animator.Play("Idel");
+
     }
 
     public void OnExit()
@@ -29,6 +37,8 @@ public class FlyIdleState : IState
 
     public void OnUpdate()
     {
+        
+        manager.TransitionState(FlyST.Run);
 
     }
 }

@@ -1,4 +1,5 @@
 using Parameter;
+using Pathfinding;
 using StateType;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +22,11 @@ namespace FsmManager
             states.Add(TumourST.Empty, new TumourEmptyState(this));
             states.Add(TumourST.Run, new TumourRunState(this));
             states.Add(TumourST.Idle, new TumourIdleState(this));
-            states.Add(TumourST.Attack, new TumourAttackState(this));
+            states.Add(TumourST.Boom, new TumourBoomState(this));
+
+            InitializeData();
+
+            TransitionState(TumourST.Idle);
 
         }
 
@@ -32,9 +37,11 @@ namespace FsmManager
 
         public void TransitionState(TumourST type)
         {
-            if (currentState == null)
+            if (currentState != null)
             {
+
                 currentState.OnExit();
+
             }
 
             currentState = states[type];
@@ -42,5 +49,41 @@ namespace FsmManager
             currentState.OnEnter();
 
         }
+        private void InitializeData()
+        {
+
+            DataManager.Instance.LoadAll();
+            var data = DataManager.Instance.GetfasdffByID(3);
+            parameter.currentHP = data.HP;
+            parameter.ATK = data.ATK;
+            parameter.speed = data.speed;
+            parameter.criticalMulti = data.criticalMulti;
+
+            parameter.transform = GetComponent<Transform>();
+            parameter.animator = transform.Find("Tumour").GetComponent<Animator>();
+            parameter.seeker = GetComponent<Seeker>();
+            parameter.seeker.pathCallback += OnPathComplete;
+
+        }
+
+        private void OnPathComplete(Pathfinding.Path p)
+        {
+            if (!p.error)
+            {
+                parameter.path = p;
+                parameter.currentWaypoint = 0;
+            }
+        }
+
+        public void GetDamege(int damege)
+        {
+            parameter.currentHP -= damege;
+        }
+
+        public void OnDestroy()
+        {
+            GameObject.Destroy(gameObject);
+        }
+
     }
 }

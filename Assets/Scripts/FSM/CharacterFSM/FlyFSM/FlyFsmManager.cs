@@ -1,4 +1,5 @@
 using Parameter;
+using Pathfinding;
 using StateType;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,16 +24,22 @@ namespace FsmManager
             states.Add(FlyST.Idle, new FlyIdleState(this));
             states.Add(FlyST.Attack, new FlyAttackState(this));
 
+            InitializeData();
+
+            TransitionState(FlyST.Idle);
+
         }
 
         void Update()
         {
+
             currentState.OnUpdate();
+
         }
 
         public void TransitionState(FlyST type)
         {
-            if (currentState == null)
+            if (currentState != null)
             {
                 currentState.OnExit();
             }
@@ -41,6 +48,35 @@ namespace FsmManager
 
             currentState.OnEnter();
 
+        }
+
+        private void InitializeData()
+        {
+            DataManager.Instance.LoadAll();
+            var data = DataManager.Instance.GetfasdffByID(2);
+            parameter.currentHP = data.HP;
+            parameter.ATK = data.ATK;
+            parameter.speed = data.speed;
+            parameter.shootRate = data.shootRate;
+
+            parameter.transform = GetComponent<Transform>();
+            parameter.animator = transform.Find("Fly").GetComponent<Animator>();
+            parameter.seeker = GetComponent<Seeker>();
+            parameter.seeker.pathCallback += OnPathComplete;
+        }
+
+        private void OnPathComplete(Pathfinding.Path p)
+        {
+            if (!p.error)
+            {
+                parameter.path = p;
+                parameter.currentWaypoint = 0;
+            }
+        }
+
+        public void GetDamege(int damege)
+        {
+            parameter.currentHP -= damege;
         }
     }
 }

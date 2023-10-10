@@ -6,6 +6,6 @@ namespace StateType
 {
     public enum TumourST
     {
-        Empty, Idle, Run, Attack
+        Empty, Idle, Run, Boom
     }
 }

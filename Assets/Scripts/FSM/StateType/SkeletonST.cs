@@ -7,6 +7,6 @@ namespace StateType
 {
     public enum SkeletonST
     {
-        Idle, Walk, Attack
+        Empty,Idle,Run,Attack
     }
 }

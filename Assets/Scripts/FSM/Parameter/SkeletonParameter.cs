@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Parameter
 {
-    //С��Skeleton����
     public class SkeletonParameter
     {
         public float currentHP;
@@ -29,6 +28,8 @@ namespace Parameter
         public Animator animator;
 
         public Transform transform;
+
     }
+
 }
 

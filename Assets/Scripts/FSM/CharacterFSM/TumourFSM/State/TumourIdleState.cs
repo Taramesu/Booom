@@ -1,5 +1,6 @@
 using FsmManager;
 using Parameter;
+using StateType;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,15 +21,31 @@ public class TumourIdleState : IState
     public void OnEnter()
     {
 
+        Debug.Log("enter Idel");
+
+        if (parameter.animator == null)
+        {
+
+            Debug.LogError("Miss animator");
+
+        }
+
+        parameter.animator.Play("Idel");
+
     }
 
     public void OnExit()
     {
+
+        Debug.Log("exit Idel");
 
     }
 
     public void OnUpdate()
     {
 
+        manager.TransitionState(TumourST.Run);
+
     }
+
 }

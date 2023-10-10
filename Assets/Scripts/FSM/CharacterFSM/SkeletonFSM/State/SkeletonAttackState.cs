@@ -28,7 +28,7 @@ public class SkeletonAttackState : IState
         timer = 0.4f;
         target = parameter.transform.position;
 
-        if (parameter.animator != null)
+        if (parameter.animator == null)
         {
             Debug.LogError("Miss animator");
         }

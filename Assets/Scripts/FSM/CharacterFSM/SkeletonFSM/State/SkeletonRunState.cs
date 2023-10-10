@@ -1,13 +1,9 @@
 using FsmManager;
 using Parameter;
 using Pathfinding;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 using StateType;
 using System;
-using Unity.VisualScripting;
 
 
 //Ð¡¹ÖSkeletonÒÆ¶¯×´Ì¬
@@ -28,7 +24,7 @@ public class SkeletonRunState : IState
     public void OnEnter()
     {
 
-        if (parameter.animator != null)
+        if (parameter.animator == null)
         {
             Debug.LogError("Miss animator");
         }
@@ -46,12 +42,7 @@ public class SkeletonRunState : IState
     public void OnUpdate()
     {
 
-        parameter.targetPos = GameObject.Find("Player(Clone)").GetComponent<UnityEngine.Transform>().position;
-
-        if(Vector3.Distance(parameter.transform.position, parameter.targetPos) < 1)
-        {
-            manager.TransitionState(SkeletonST.Idle);
-        }
+        parameter.targetPos = GameObject.Find("Player(Clone)").GetComponent<Transform>().position;
 
         parameter.seeker.StartPath(parameter.transform.position, parameter.targetPos);
 
