@@ -23,5 +23,7 @@ public class PlayerParameter
 
     public Vector3 currentPosition;
 
+    public int currentRoomID;
+
     public SpriteRenderer headSpriteRenderer;
 }  

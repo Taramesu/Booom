@@ -17,7 +17,8 @@ public class MainMenuPanel : BasePanel
         GameObject panel = UIManager.Instance.GetSingleUI(UIType);
         UITool.GetOrAddComponentInChildren<Button>("Btn_StartGame", panel).onClick.AddListener(() =>
         {
-            GameRoot.Instance.SwitchScene("GameScene");
+            //GameRoot.Instance.SwitchScene("GameScene");
+            SceneSystem.Instance.SetScene(new GameScene());
         });
         UITool.GetOrAddComponentInChildren<Button>("Btn_Continue", panel).onClick.AddListener(() =>
         {
