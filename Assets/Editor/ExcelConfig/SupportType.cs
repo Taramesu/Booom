@@ -226,8 +226,8 @@ public class ScriptGenerator
                           '"' + " in " + t.Name + '"' + ");\n");
             source.Append("\t\treturn t;\n");
             source.Append("\t}\n\n");
-            
-            source.Append("\tpublic Dictionary<int, " + typeName +">" + " Get" + typeNameNotItem + "()\n");
+
+            source.Append("\tpublic Dictionary<int, " + typeName + ">" + " Get" + typeNameNotItem + "()\n");
             source.Append("\t{\n");
             source.Append("\t\treturn p_" + t.Name + ".Dict;\n");
             source.Append("\t}\n\n");
@@ -242,7 +242,7 @@ public class ScriptGenerator
         }
 
         source.Append("\t}\n\n");
-        
+
         //运行时加载所有配置表
         source.Append("\tpublic void RuntimeLoadAll(Dictionary<String, System.Object> objs)\n");
         source.Append("\t{\n");

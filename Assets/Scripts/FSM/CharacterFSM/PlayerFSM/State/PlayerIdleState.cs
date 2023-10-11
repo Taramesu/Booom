@@ -24,7 +24,7 @@ public class PlayerIdleState : IState
         parameter.animator.Play("idle");
         if(!parameter.attacking)
         {
-            var image = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
+            var image = Resources.Load<Sprite>(parameter.headSpritePath + "head-front");
             parameter.headSpriteRenderer.sprite = image;
 #if UNITY_EDITOR
            //if(image == null) 
@@ -75,6 +75,6 @@ public class PlayerIdleState : IState
 
     public void OnHeadSynchronizeIdle()
     {
-        parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
+        parameter.headSpriteRenderer.sprite = Resources.Load<Sprite>(parameter.headSpritePath + "head-front");
     }
 }

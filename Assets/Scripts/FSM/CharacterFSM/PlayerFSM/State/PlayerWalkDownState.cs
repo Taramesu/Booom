@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
 
 public class PlayerWalkDownState : IState
 {
@@ -18,7 +18,8 @@ public class PlayerWalkDownState : IState
         parameter.animator.Play("run_front");
         if (!parameter.attacking)
         {
-            var image = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
+            //var image = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
+            var image = Resources.Load<Sprite>(parameter.headSpritePath+"head-front");
             parameter.headSpriteRenderer.sprite = image;
 #if UNITY_EDITOR
             //if (image == null)
@@ -53,7 +54,7 @@ public class PlayerWalkDownState : IState
 
     public void OnHeadSynchronizeDown()
     {
-        parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
+        parameter.headSpriteRenderer.sprite = Resources.Load<Sprite>(parameter.headSpritePath + "head-front");
     }
 
 }

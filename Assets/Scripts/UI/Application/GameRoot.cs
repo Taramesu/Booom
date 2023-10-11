@@ -1,8 +1,6 @@
-﻿using System;
+﻿
 using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEditor.SearchService;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 //游戏的根管理器

@@ -1,11 +1,9 @@
-using Excel.Exceptions;
 using FsmManager;
-using StateType;
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class MonsterGenerator : Singleton2Manager<MonsterGenerator>
 {
@@ -74,6 +72,7 @@ public class MonsterGenerator : Singleton2Manager<MonsterGenerator>
             if(monsterList.Count == 0)
             {
                 currentRoom.isCleared = true;
+                ArchiveSystem.Instance.AutoSave();
             }
 
         }
@@ -82,10 +81,11 @@ public class MonsterGenerator : Singleton2Manager<MonsterGenerator>
 
     GameObject GetMonsterPrefab(string monsterPrefabName)
     {
-        var path = "Assets/Prefabs/Enemy/" + monsterPrefabName + ".prefab";
+        var path = "Prefabs/Enemy/" + monsterPrefabName;
         try
         {
-            var roomPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            //var roomPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            var roomPrefab = Resources.Load<GameObject>(path);
             return roomPrefab;
         }
         catch (System.Exception e)

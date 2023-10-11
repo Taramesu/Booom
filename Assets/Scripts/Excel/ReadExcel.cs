@@ -5,7 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEditor;
 using Excel;
+
+
 
 public class SupportType
 {
@@ -73,12 +76,12 @@ public class ReadExcel : Singleton<ReadExcel>
             object container = assembly.CreateInstance(CODE_NAMESPACE + "." + each.Key);
             //序列化数据
             Serialize(container, temp, each.Value);
-            objs.Add(each.Key,container);
+            objs.Add(each.Key, container);
         }
         DataManager.Instance.RuntimeLoadAll(objs);
         Debug.Log("<color=green>导表成功!</color>");
     }
-    
+
     //数据表内每一格数据
     class ConfigData
     {
@@ -180,8 +183,8 @@ public class ReadExcel : Singleton<ReadExcel>
         stream.Dispose();
         stream.Close();
     }
-    
- //序列化对象
+
+    //序列化对象
     private static void Serialize(object container, Type temp, List<ConfigData[]> dataList)
     {
         //设置数据
@@ -204,21 +207,21 @@ public class ReadExcel : Singleton<ReadExcel>
                     Debug.Log("info是空的：" + data.Name);
                 }
             }
-            
+
             // FieldInfo.GetValue 获取对象内指定名称的字段的值
             object id = temp.GetField("id").GetValue(t); //获取id
             FieldInfo dictInfo = container.GetType().GetField("Dict");
             object dict = dictInfo.GetValue(container);
 
-            bool isExist = (bool) dict.GetType().GetMethod("ContainsKey").Invoke(dict, new System.Object[] {id});
+            bool isExist = (bool)dict.GetType().GetMethod("ContainsKey").Invoke(dict, new System.Object[] { id });
             if (isExist)
             {
                 throw new Exception("ID重复：" + id + "，类型： " + container.GetType().Name);
             }
-            dict.GetType().GetMethod("Add").Invoke(dict, new System.Object[] {id, t});
+            dict.GetType().GetMethod("Add").Invoke(dict, new System.Object[] { id, t });
         }
     }
-    
+
     private static void DebugError(string type, string data, string classname)
     {
         Debug.LogError(string.Format("数据类型错误：{0}==={1}==={2}", type, data, classname));
@@ -287,11 +290,11 @@ public class ReadExcel : Singleton<ReadExcel>
                         }
                         else if (item.Contains("."))
                         {
-                            arlist.Add((float) ParseValue(SupportType.FLOAT, item, classname));
+                            arlist.Add((float)ParseValue(SupportType.FLOAT, item, classname));
                         }
                         else
                         {
-                            arlist.Add((int) ParseValue(SupportType.INT, item, classname));
+                            arlist.Add((int)ParseValue(SupportType.INT, item, classname));
                         }
                     }
 
@@ -303,7 +306,7 @@ public class ReadExcel : Singleton<ReadExcel>
                     List<int> list = new List<int>();
                     foreach (var item in ints)
                     {
-                        list.Add((int) ParseValue(SupportType.INT, item, classname));
+                        list.Add((int)ParseValue(SupportType.INT, item, classname));
                     }
 
                     o = list;
@@ -314,7 +317,7 @@ public class ReadExcel : Singleton<ReadExcel>
                     List<float> list2 = new List<float>();
                     foreach (var item in floats)
                     {
-                        list2.Add((float) ParseValue(SupportType.FLOAT, item, classname));
+                        list2.Add((float)ParseValue(SupportType.FLOAT, item, classname));
                     }
 
                     o = list2;
@@ -339,7 +342,7 @@ public class ReadExcel : Singleton<ReadExcel>
                     List<List<int>> list4 = new List<List<int>>();
                     foreach (var item in arr4)
                     {
-                        list4.Add((List<int>) ParseValue(SupportType.LIST_INT, item, classname));
+                        list4.Add((List<int>)ParseValue(SupportType.LIST_INT, item, classname));
                     }
 
                     o = list4;
@@ -353,7 +356,7 @@ public class ReadExcel : Singleton<ReadExcel>
                     List<List<float>> list5 = new List<List<float>>();
                     foreach (var item in arr5)
                     {
-                        list5.Add((List<float>) ParseValue(SupportType.LIST_FLOAT, item, classname));
+                        list5.Add((List<float>)ParseValue(SupportType.LIST_FLOAT, item, classname));
                     }
 
                     o = list5;
@@ -367,7 +370,7 @@ public class ReadExcel : Singleton<ReadExcel>
                     List<List<string>> list6 = new List<List<string>>();
                     foreach (var item in arr6)
                     {
-                        list6.Add((List<string>) ParseValue(SupportType.LIST_STRING, item, classname));
+                        list6.Add((List<string>)ParseValue(SupportType.LIST_STRING, item, classname));
                     }
 
                     o = list6;

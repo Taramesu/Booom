@@ -90,7 +90,7 @@ public class PlayerFsmManager : MonoBehaviour
         parameter.animator = transform.Find("Body").GetComponent<Animator>();
         parameter.headSpriteRenderer = transform.Find("Head").GetComponent<SpriteRenderer>();
 
-        parameter.headSpritePath = "Assets/ArtAssets/Player/head/";
+        parameter.headSpritePath = "ArtAssets/Player/head/";
 
 #if UNITY_EDITOR
         //Debug.Log($"realSpeed: {parameter.speed}");
@@ -112,16 +112,16 @@ public class PlayerFsmManager : MonoBehaviour
             switch (GetDir(PlayerInputData.Instance.attackVal))
             {
                 case PlayerDir.up:
-                    parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-behind.png");
+                    parameter.headSpriteRenderer.sprite = Resources.Load<Sprite>(parameter.headSpritePath + "head-behind");
                     break;
                 case PlayerDir.down:
-                    parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-front.png");
+                    parameter.headSpriteRenderer.sprite = Resources.Load<Sprite>(parameter.headSpritePath + "head-front");
                     break;
                 case PlayerDir.left:
-                    parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-left.png");
+                    parameter.headSpriteRenderer.sprite = Resources.Load<Sprite>(parameter.headSpritePath + "head-left");
                     break;
                 case PlayerDir.right:
-                    parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-right.png");
+                    parameter.headSpriteRenderer.sprite = Resources.Load<Sprite>(parameter.headSpritePath + "head-right");
                     break;
             }
         }

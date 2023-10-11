@@ -45,11 +45,13 @@ public class Door : MonoBehaviour
     {
         if (isOpen)
         {
-            renderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(PathAndPrefabManager.Instance.GetDoorSpritePath(doorName + "-open"));
+            //renderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(PathAndPrefabManager.Instance.GetDoorSpritePath(doorName + "-open"));
+            renderer.sprite = Resources.Load<Sprite>(PathAndPrefabManager.Instance.GetDoorSpritePath(doorName + "-open"));
         }
         else
         {
-            renderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(PathAndPrefabManager.Instance.GetDoorSpritePath(doorName + "-close"));
+            //renderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(PathAndPrefabManager.Instance.GetDoorSpritePath(doorName + "-close"));
+            renderer.sprite = Resources.Load<Sprite>(PathAndPrefabManager.Instance.GetDoorSpritePath(doorName + "-close"));
         }
     }
 

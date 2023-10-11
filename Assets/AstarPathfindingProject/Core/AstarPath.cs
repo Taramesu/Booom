@@ -1222,10 +1222,10 @@ public class AstarPath : VersionedMonoBehaviour {
 		// Very important to set this. Ensures the singleton pattern holds
 		active = this;
 
-		if (FindObjectsOfType(typeof(AstarPath)).Length > 1) {
-			Debug.LogError("You should NOT have more than one AstarPath component in the scene at any time.\n" +
-				"This can cause serious errors since the AstarPath component builds around a singleton pattern.");
-		}
+		//if (FindObjectsOfType(typeof(AstarPath)).Length > 1) {
+		//	Debug.LogError("You should NOT have more than one AstarPath component in the scene at any time.\n" +
+		//		"This can cause serious errors since the AstarPath component builds around a singleton pattern.");
+		//}
 
 		// Disable GUILayout to gain some performance, it is not used in the OnGUI call
 		useGUILayout = false;

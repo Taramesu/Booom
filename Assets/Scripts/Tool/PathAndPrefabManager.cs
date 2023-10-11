@@ -8,10 +8,10 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
 {
     public GameObject GetDoorPrefab(string roomPrefabName)
     {
-        var path = "Assets/Prefabs/Doors/" + roomPrefabName + ".prefab";
+        var path = "Prefabs/Doors/" + roomPrefabName;
         try
         {
-            return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            return Resources.Load<GameObject>(path);
         }
         catch (System.Exception e)
         {
@@ -24,10 +24,10 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
 
     public GameObject GetRoomEdgePrefab(string roomEdgePrefabName)
     {
-        var path = "Assets/Prefabs/Rooms/" + roomEdgePrefabName + ".prefab";
+        var path = "Prefabs/Rooms/" + roomEdgePrefabName;
         try
         {
-            return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            return Resources.Load<GameObject>(path);
         }
         catch (System.Exception e)
         {
@@ -40,10 +40,10 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
 
     public GameObject GetRoomSpawnPointPrefab(string spawnPointName)
     {
-        var path = "Assets/Prefabs/Rooms/" + spawnPointName + ".prefab";
+        var path = "Prefabs/Rooms/" + spawnPointName;
         try
         {
-            return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            return Resources.Load<GameObject>(path);
         }
         catch (System.Exception e)
         {
@@ -56,10 +56,10 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
 
     public GameObject GetPlayerPrefab(string playerPrefabName) 
     {
-        var path = "Assets/Prefabs/" + playerPrefabName + ".prefab";
+        var path = "Prefabs/" + playerPrefabName;
         try
         {
-            return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            return Resources.Load<GameObject>(path);
         }
         catch (System.Exception e)
         {
@@ -72,10 +72,10 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
 
     public GameObject GetBulletPrefab(string BulletPrefabName)
     {
-        var path = "Assets/Prefabs/Bullets/" + BulletPrefabName + ".prefab";
+        var path = "Prefabs/Bullets/" + BulletPrefabName;
         try
         {
-            return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            return Resources.Load<GameObject>(path);
         }
         catch (System.Exception e)
         {
@@ -88,22 +88,22 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
 
     public string GetDoorSpritePath(string spriteName)
     {
-        var path = "Assets/ArtAssets/Door/" + spriteName + ".png";
+        var path = "ArtAssets/Door/" + spriteName;
         return path;
     }
 
     public string GetCardSpritePath(string spriteName)
     {
-        var path = "Assets/ArtAssets/CardShape/" + spriteName + ".png";
+        var path = "ArtAssets/CardShape/" + spriteName;
         return path;
     }
 
     public GameObject GetCardPrefab(string cardName)
     {
-        var path = "Assets/Prefabs/Cards/" + cardName + ".prefab";
+        var path = "Prefabs/Cards/" + cardName;
         try
         {
-            return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            return Resources.Load<GameObject>(path);
         }
         catch (System.Exception e)
         {
@@ -116,10 +116,10 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
 
     public GameObject GetCardBagPrefab(string cardBagName)
     {
-        var path = "Assets/Prefabs/Cards/" + cardBagName + ".prefab";
+        var path = "Prefabs/Cards/" + cardBagName;
         try
         {
-            return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            return Resources.Load<GameObject>(path);
         }
         catch (System.Exception e)
         {

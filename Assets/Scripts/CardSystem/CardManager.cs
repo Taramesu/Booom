@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class CardManager : Singleton2Manager<CardManager>
 {

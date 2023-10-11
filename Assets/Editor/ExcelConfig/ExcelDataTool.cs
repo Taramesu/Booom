@@ -250,7 +250,7 @@ public class ExcelDataTool
         CSharpCodeProvider codeProvider = new CSharpCodeProvider();
         //编译器参数实例对象
         CompilerParameters objCompilerParameters = new CompilerParameters();
-        objCompilerParameters.ReferencedAssemblies.AddRange(new string[] {"System.dll"}); //添加程序集引用
+        objCompilerParameters.ReferencedAssemblies.AddRange(new string[] { "System.dll" }); //添加程序集引用
         objCompilerParameters.OutputAssembly = path + "/" + CODE_NAMESPACE + ".dll"; //设置输出的程序集名
         objCompilerParameters.GenerateExecutable = false;
         objCompilerParameters.GenerateInMemory = true;
@@ -300,14 +300,14 @@ public class ExcelDataTool
             FieldInfo dictInfo = container.GetType().GetField("Dict");
             object dict = dictInfo.GetValue(container);
 
-            bool isExist = (bool) dict.GetType().GetMethod("ContainsKey").Invoke(dict, new System.Object[] {id});
+            bool isExist = (bool)dict.GetType().GetMethod("ContainsKey").Invoke(dict, new System.Object[] { id });
             if (isExist)
             {
                 EditorUtility.DisplayDialog("注意！！！", "ID重复：" + id + "，类型： " + container.GetType().Name, "确定");
                 throw new Exception("ID重复：" + id + "，类型： " + container.GetType().Name);
             }
 
-            dict.GetType().GetMethod("Add").Invoke(dict, new System.Object[] {id, t});
+            dict.GetType().GetMethod("Add").Invoke(dict, new System.Object[] { id, t });
         }
 
         IFormatter f = new BinaryFormatter();

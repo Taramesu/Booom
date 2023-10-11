@@ -18,7 +18,7 @@ public class PlayerWalkLeftState : IState
         parameter.animator.Play("run_left");
         if (!parameter.attacking)
         {
-            var image = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-left.png");
+            var image = Resources.Load<Sprite>(parameter.headSpritePath + "head-left");
             parameter.headSpriteRenderer.sprite = image;
 #if UNITY_EDITOR
             //if (image == null)
@@ -52,6 +52,6 @@ public class PlayerWalkLeftState : IState
 
     public void OnHeadSynchronizeLeft()
     {
-        parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-left.png");
+        parameter.headSpriteRenderer.sprite = Resources.Load<Sprite>(parameter.headSpritePath + "head-left");
     }
 }

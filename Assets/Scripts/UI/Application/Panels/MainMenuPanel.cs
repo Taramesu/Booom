@@ -35,6 +35,7 @@ public class MainMenuPanel : BasePanel
         });
         UITool.GetOrAddComponentInChildren<Button>("Btn_Exit", panel).onClick.AddListener(() =>
         {
+            Application.Quit();
             PanelManager.Instance.Push(new ExitPanel());
         });
     }

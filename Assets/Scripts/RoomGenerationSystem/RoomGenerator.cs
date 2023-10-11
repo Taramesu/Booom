@@ -199,10 +199,11 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
 
     GameObject GetRoomPrefab(string roomPrefabName)
     {
-        var path = "Assets/Prefabs/Rooms/" + roomPrefabName + ".prefab";
+        var path = "Prefabs/Rooms/" + roomPrefabName;
         try
         {
-            var roomPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            //var roomPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            var roomPrefab = Resources.Load<GameObject>(path);
             return roomPrefab;
         }
         catch(System.Exception e)

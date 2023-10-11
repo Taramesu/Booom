@@ -18,7 +18,7 @@ public class PlayerWalkUpState : IState
         parameter.animator.Play("run_behind");
         if (!parameter.attacking)
         {
-            var image = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-behind.png");
+            var image = Resources.Load<Sprite>(parameter.headSpritePath + "head-behind");
             parameter.headSpriteRenderer.sprite = image;
 #if UNITY_EDITOR
             //if (image == null)
@@ -52,7 +52,7 @@ public class PlayerWalkUpState : IState
 
     public void OnHeadSynchronizeUp()
     {
-        parameter.headSpriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(parameter.headSpritePath + "head-behind.png");
+        parameter.headSpriteRenderer.sprite = Resources.Load<Sprite>(parameter.headSpritePath + "head-behind");
     }
 
 }

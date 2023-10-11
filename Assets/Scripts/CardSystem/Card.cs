@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using UnityEditor;
+
 using UnityEngine;
 
 public class Card : MonoBehaviour
