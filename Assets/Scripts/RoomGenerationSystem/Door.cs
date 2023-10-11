@@ -16,6 +16,7 @@ public class Door : MonoBehaviour
     public Vector3 transferOffset;
     public Transform targetRoom;
     public Transform roomEdge;
+    public Room targetRoomData;
     public bool isOpen;
 
     private TimeTools timeTools;
@@ -74,14 +75,9 @@ public class Door : MonoBehaviour
             roomEdge.transform.position = targetRoom.transform.position;
             RoomGenerator.Instance.roomEdgePosition = roomEdge.transform.position;
             collision.GetComponent<Transform>().position = target.position + transferOffset;
-
-            MonsterGenerator.Instance.GenerateMonster(targetRoom);
+            collision.GetComponent<PlayerFsmManager>().parameter.currentRoomID = targetRoomData.roomID;
 
             timeTools.PauseGame(0.3f);
-
-#if UNITY_EDITOR
-            //Debug.Log("player enter");
-#endif
         }
     }
 }

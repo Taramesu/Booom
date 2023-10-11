@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,40 +8,38 @@ public class Card : MonoBehaviour
 {
     public bool isEffective;
     public int ID;
-    public int[,] shape;
-    public SpriteRenderer spriteRenderer;
+    public SpriteRenderer[] spriteRendererList;
+
+    private CardUnit[] blockList;
+    private CardPool pool;
 
     private void Start()
     {
-        GetShape();
-        GetSprite();
+        blockList = gameObject.GetComponentsInChildren<CardUnit>();
+        spriteRendererList = gameObject.GetComponentsInChildren<SpriteRenderer>();
+        pool = GameObject.Find("CardPool").GetComponent<CardPool>();
+        isEffective = true;
     }
 
-    private void GetShape()
+    private void Update()
     {
-        if(CardLib.Instance.m_shapeDic.ContainsKey(ID))
-        {
-            shape = CardLib.Instance.m_shapeDic[ID];
-        }
-        else
-        {
-#if UNITY_EDITOR
-            Debug.Log($"Failed to find shape_{ID}");
-#endif
-        }
+        if (isEffective)
+        Check();
     }
 
-    private void GetSprite()
+    private void Check()
     {
-        if (CardLib.Instance.m_shapeSpritePath.ContainsKey(ID))
+        foreach (CardUnit block in blockList)
         {
-            spriteRenderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(CardLib.Instance.m_shapeSpritePath[ID]);
-        }
-        else
-        {
-#if UNITY_EDITOR
-            Debug.Log($"Failed to find shape_{ID}_Sprite");
-#endif
+            if(!block.couldPutDown)
+            {
+                pool.currentShapeCoubeBePutDown = false;
+                break;
+            }
+            else
+            {
+                pool.currentShapeCoubeBePutDown = true;
+            }
         }
     }
 }

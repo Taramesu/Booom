@@ -16,7 +16,7 @@ public class GameScene : SceneBase
         }
         else
         {
-            //PanelManager.Instance.Push(new MainMenuPanel());
+            PanelManager.Instance.Push(new BattlePanel());
         }
     }
 
@@ -28,6 +28,6 @@ public class GameScene : SceneBase
 
     private void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //PanelManager.Instance.Push(new MainMenuPanel());
+        PanelManager.Instance.Push(new BattlePanel());
     }
 }

@@ -11,10 +11,14 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
     public float playerCurrentEXP;
     public Vector2 playerPosition;
     public float playerCurrentHP;
+    public float playerCurrentMaxHP;
     public List<Vector3> roomPositionList;
     public List<Vector2> roomsMapIndex;
     public float currentSpeed;
     public Vector2 roomEdgePosition;
+    public int currentRoomID;
+    public bool isFirstGame;
+    public int playrLevel;
     [Serializable]
     class SaveData //需要存档的数据
     {
@@ -28,6 +32,8 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
 
         public float playerCurrentHP;
 
+        public float playerCurrentMaxHP;
+
         public float currentSpeed;
 
         public List<Vector3> roomPositionList = new List<Vector3>();
@@ -35,6 +41,12 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
         public List<Vector2> roomsMapIndex = new List<Vector2>();
 
         public Vector2 roomEdgePosition;
+
+        public int currentRoomID;
+
+        public bool isFirstGame;
+
+        public int playrLevel;
     }
 
     const string PLAYER_DATA_FILE_NAME = "PlayerData.sav";
@@ -99,10 +111,14 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
         saveData.playerCurrentEXP = playerCurrentEXP;
         saveData.playerPosition = playerPosition;
         saveData.playerCurrentHP = playerCurrentHP;
+        saveData.playerCurrentMaxHP = playerCurrentMaxHP;
         saveData.roomPositionList = roomPositionList;
         saveData.roomsMapIndex = roomsMapIndex;
         saveData.currentSpeed = currentSpeed;
         saveData.roomEdgePosition = roomEdgePosition;
+        saveData.currentRoomID = currentRoomID;
+        saveData.isFirstGame = isFirstGame;
+        saveData.playerLevel = playerLevel;
         return saveData;
     }
 
@@ -113,10 +129,14 @@ public class PlayerDataManager : Singleton2Manager<PlayerDataManager>
         playerCurrentEXP = saveData.playerCurrentEXP;
         playerPosition = saveData.playerPosition;
         playerCurrentHP = saveData.playerCurrentHP;
+        playerCurrentMaxHP = saveData.playerCurrentMaxHP;
         roomPositionList = saveData.roomPositionList;
         roomsMapIndex = saveData.roomsMapIndex;
         currentSpeed = saveData.currentSpeed;
         roomEdgePosition = saveData.roomEdgePosition;
+        currentRoomID = saveData.currentRoomID;
+        isFirstGame = saveData.isFirstGame;
+        playerLevel = saveData.playerLevel;
     }
     #endregion
 }

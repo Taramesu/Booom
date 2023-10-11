@@ -4,5 +4,35 @@ using UnityEngine;
 
 public class CardUnit : MonoBehaviour
 {
-    
+    public bool couldPutDown;
+
+
+    private void Start()
+    {
+        couldPutDown = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Block")||collision.CompareTag("PoolWall"))
+        {
+            couldPutDown = false;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Block") || collision.CompareTag("PoolWall"))
+        {
+            couldPutDown = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Block") || collision.CompareTag("PoolWall"))
+        {
+            couldPutDown = true;
+        }
+    }
 }
