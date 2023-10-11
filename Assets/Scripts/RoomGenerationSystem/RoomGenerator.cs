@@ -119,6 +119,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.targetRoom = roomsMap[i - 1][j].transform;
                         door.roomEdge = roomEdgePrefab.transform;
                         door.targetRoomData = roomsMap[i - 1][j].GetComponent<Room>();
+                        door.currentRoomData = currentRoom;
                         door.InitialzeData();
                     }
                     if (roomsMap[i + 1][j] != null)
@@ -131,6 +132,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.targetRoom = roomsMap[i + 1][j].transform;
                         door.roomEdge = roomEdgePrefab.transform;
                         door.targetRoomData = roomsMap[i + 1][j].GetComponent<Room>();
+                        door.currentRoomData = currentRoom;
                         door.InitialzeData();
                     }
                     if (roomsMap[i][j - 1] != null)
@@ -143,6 +145,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.targetRoom = roomsMap[i][j - 1].transform;
                         door.roomEdge = roomEdgePrefab.transform;
                         door.targetRoomData = roomsMap[i][j - 1].GetComponent<Room>();
+                        door.currentRoomData = currentRoom;
                         door.InitialzeData();
                     }
                     if (roomsMap[i ][j + 1] != null)
@@ -155,6 +158,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
                         door.targetRoom = roomsMap[i][j + 1].transform;
                         door.roomEdge = roomEdgePrefab.transform;
                         door.targetRoomData = roomsMap[i][j + 1].GetComponent<Room>();
+                        door.currentRoomData = currentRoom;
                         door.InitialzeData();
                     }
                 }

@@ -19,11 +19,11 @@ public class CardPool : MonoBehaviour
         InitializeGrid(offset);
 
         //测试代码，实际请需要在卡池中放置时再调用
-        GetCurrentShape("Card_1");
+        //GetCurrentShape("Card_1");
 
         gridXOffset = 5;
         gridYOffset = 5;
-        currentShape.transform.position = poolGrid[gridYOffset][gridXOffset].position;
+        //currentShape.transform.position = poolGrid[gridYOffset][gridXOffset].position;
         currentShapeCoubeBePutDown = false;
         
     }
@@ -46,6 +46,12 @@ public class CardPool : MonoBehaviour
         //currentShape = Instantiate(PathAndPrefabManager.Instance.GetCardPrefab(cardName), poolGrid[gridYOffset][gridXOffset].position, Quaternion.identity);
         var cardPrefab = PathAndPrefabManager.Instance.GetCardPrefab(cardName);
         currentShape = Instantiate(cardPrefab, poolGrid[gridYOffset][gridXOffset].position, Quaternion.identity, gameObject.transform);
+    }
+
+    public void GetCurrentShape(GameObject card)
+    {
+        currentShape = card;
+        card.transform.position = poolGrid[gridYOffset][gridXOffset].position;
     }
 
     /// <summary>

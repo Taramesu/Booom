@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -10,13 +11,29 @@ public class CardManager : Singleton2Manager<CardManager>
     private string cardBagName;
     private List<Card> cardBag = new List<Card>();
     private GameObject instantiatedCardBag;
+    private List<cardBagData> data = new List<cardBagData>();
+    private GameObject instantiatedCardSelect;
+    private GameObject[] instantiatedCard;
+
+    class cardBagData
+    {
+        public cardBagData(Vector3 cardPosition, bool hasCard)
+        {
+            this.cardPosition = cardPosition;
+            this.hasCard = hasCard;
+        }
+        public Vector3 cardPosition;
+        public bool hasCard;
+        public GameObject card;
+    }
+
 
     #region API
     /// <summary>
     /// 生成CardBag到屏幕中心
     /// </summary>
     /// <param name="position"></param>
-    public void InstantiateCardBag()
+    public void ControlCardBag()
     {
         if (instantiatedCardBag == null)
         {
@@ -24,7 +41,22 @@ public class CardManager : Singleton2Manager<CardManager>
             var cardBag = PathAndPrefabManager.Instance.GetCardBagPrefab(cardBagName);
 
             var position = GetScreenCenterWorldPosition(Camera.main);
+            position.z = 0;
             instantiatedCardBag = Instantiate(cardBag, new Vector2(position.x, position.y), Quaternion.identity);
+            return;
+        }
+
+        if(instantiatedCardBag.activeInHierarchy)
+        {
+            instantiatedCardBag.SetActive(false);
+        }
+        else
+        {
+            var position = GetScreenCenterWorldPosition(Camera.main);
+            position.z = 0;
+            instantiatedCardBag.transform.position = position;
+            
+            instantiatedCardBag.SetActive(true);
         }
     }
 
@@ -103,4 +135,114 @@ public class CardManager : Singleton2Manager<CardManager>
         Vector3 worldPosition = camera.ScreenToWorldPoint(screenCenter);
         return worldPosition;
     }
+
+    private void InitializeBagGrid()
+    {
+        var spawnPoitn = GetScreenCenterWorldPosition(Camera.main) + new Vector3(-3,3);
+        spawnPoitn.z = 0;
+        //var offset = 1;
+
+        for (int y = 0; y < 5; y++)
+        {
+            for (int x = 0; x < 4; x++)
+            {
+                Vector3 position = spawnPoitn + new Vector3(x, -y , 0f);
+                data.Add(new cardBagData(position, false));
+            }
+        }
+    }
+
+    /// <summary>
+    /// 将卡牌预制体放到对应的地方
+    /// </summary>
+    /// <param name="card"></param>
+    public void GetCardToBag(GameObject card)
+    {
+        if (data == null)
+        {
+            InitializeBagGrid();
+        }
+        else
+        {
+            foreach( var data in data)
+            {
+                if(data.hasCard == false)
+                {
+                    card.transform.position = data.card.transform.position;
+                    data.card = card;
+                    data.hasCard = true;                   
+                    return;
+                }
+            }
+        }
+
+    }
+
+
+    // 生成卡牌和恶魔的立绘
+    public void InstantiateCardSelect()
+    {
+        if (instantiatedCardSelect == null)
+        {
+            var cardSelectName = "CardSelect";
+            var cardSelect = PathAndPrefabManager.Instance.GetCardBagPrefab(cardSelectName);
+
+            var position = GetScreenCenterWorldPosition(Camera.main);
+            position.z = 0f;
+            instantiatedCardSelect = Instantiate(cardSelect, new Vector2(position.x, position.y), Quaternion.identity);
+            InstantiateCards(new Vector2(position.x, position.y), 5);
+        }
+    }
+    // 消除卡牌和恶魔的立绘
+    public void DestroyCardSelect()
+    {
+        Destroy(instantiatedCardSelect);
+        instantiatedCardSelect = null;
+        for (int i = 0; i < instantiatedCard.Length; i++)
+        {
+            Destroy(instantiatedCard[i]);
+        }
+        instantiatedCard = null;
+    }
+
+    /// <summary>
+    /// 获取点击card的GameObject
+    /// </summary>
+    /// <returns></returns>
+    public GameObject ClickToGetCardObject()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            Vector2 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Collider2D clickedObject = Physics2D.OverlapPoint(worldPosition);
+
+            if (clickedObject != null && clickedObject.CompareTag("Block"))
+            {
+                
+
+                // 获取到点击物体的父物体
+                Transform parentTransform = clickedObject.transform.parent;
+
+                GameObject parentGameObject = parentTransform.gameObject;
+                return parentGameObject;
+            }
+        }
+
+        return default;
+    }
+
+    public void GetCardIntoPool()
+    {
+        var card = ClickToGetCardObject();
+        if (card == null) 
+        {
+            return;
+        }
+        else
+        {
+            instantiatedCardBag.transform.Find("CardPool").GetComponent<CardPool>().GetCurrentShape(card);
+        }    
+    }
+
 }
