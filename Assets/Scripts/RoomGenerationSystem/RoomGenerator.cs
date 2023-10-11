@@ -75,6 +75,7 @@ public class RoomGenerator : Singleton2Manager<RoomGenerator>
             if(i == 0)
             {
                 roomPrefab = GetRoomPrefab(beginRoomPrefabName);
+                roomPrefab.GetComponent<Room>().isCleared = true;
             }
             else if(i == roomQuantity-1)
             {

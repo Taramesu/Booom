@@ -12,8 +12,6 @@ public class TumourRunState : IState
     private TumourFsmManager manager;
     private TumourParameter parameter;
 
-    private float timer;
-
     public float nextWaypointDistance = 0.1f;
 
     public TumourRunState(TumourFsmManager manager)
@@ -24,39 +22,12 @@ public class TumourRunState : IState
 
     public void OnEnter()
     {
-        timer = 0.65f;
-
-        parameter.targetPos = GameObject.Find("Player(Clone)").GetComponent<Transform>().position;
-
 
         if (parameter.animator == null)
         {
 
             Debug.LogError("Miss animator");
 
-        }
-
-        if(Vector3.Distance(parameter.targetPos,parameter.transform.position) < 3)
-        {
-            if((parameter.path.vectorPath[parameter.currentWaypoint + 1] - parameter.transform.position).normalized.x<0)
-            {
-                parameter.animator.Play("random-left");
-            }
-            else
-            {
-                parameter.animator.Play("random-right");
-            }
-        }
-        else
-        {
-            if ((parameter.path.vectorPath[parameter.currentWaypoint + 1] - parameter.transform.position).normalized.x < 0)
-            {
-                parameter.animator.Play("move-left");
-            }
-            else
-            {
-                parameter.animator.Play("move-right");
-            }
         }
 
     }
@@ -70,19 +41,18 @@ public class TumourRunState : IState
 
     public void OnUpdate()
     {
-        timer -= Time.deltaTime;
-
-        if(timer < 0)
-        {
-            manager.TransitionState(TumourST.Idle);
-        }
 
         parameter.targetPos = GameObject.Find("Player(Clone)").GetComponent<Transform>().position;
+
+        if(parameter.currentHP < 1)
+        {
+            manager.OnDie();
+        }
 
         if (Vector3.Distance(parameter.transform.position, parameter.targetPos) < 1.5)
         {
 
-            manager.TransitionState(TumourST.Boom);
+            manager.OnDie();
 
         }
 
@@ -102,8 +72,30 @@ public class TumourRunState : IState
 
         }
 
-
         Vector3 dir = (parameter.path.vectorPath[parameter.currentWaypoint + 1] - parameter.transform.position).normalized;
+
+        if (Vector3.Distance(parameter.targetPos, parameter.transform.position) < 3)
+        {
+            if (dir.x < 0)
+            {
+                parameter.animator.Play("random-left");
+            }
+            else
+            {
+                parameter.animator.Play("random-right");
+            }
+        }
+        else
+        {
+            if (dir.x < 0)
+            {
+                parameter.animator.Play("move-left");
+            }
+            else
+            {
+                parameter.animator.Play("move-right");
+            }
+        }
 
         dir *= parameter.speed * Time.deltaTime;
 

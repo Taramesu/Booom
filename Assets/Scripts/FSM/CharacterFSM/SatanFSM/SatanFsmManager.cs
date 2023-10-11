@@ -24,6 +24,7 @@ namespace FsmManager
             states.Add(SatanST.Run, new SatanRunState(this));
             states.Add(SatanST.Idle, new SatanIdleState(this));
             states.Add(SatanST.Attack, new SatanAttackState(this));
+            states.Add(SatanST.Shoot, new SatanShootState(this));
 
             InitializeData();
 
@@ -37,6 +38,11 @@ namespace FsmManager
 
         void Update()
         {
+
+            if (parameter.currentHP < 0)
+            {
+                OnDestroy();
+            }
 
             currentState.OnUpdate();
 
@@ -82,9 +88,18 @@ namespace FsmManager
             }
         }
 
-        public void GetDamege(int damege)
+        public void GetDamage(float damage)
         {
-            parameter.currentHP -= damege;
+            parameter.currentHP -= damage;
+            Debug.Log(parameter.currentHP);
+        }
+
+        public void OnDestroy()
+        {
+
+            MonsterGenerator.Instance.monsterList.Remove(gameObject);
+            GameObject.Destroy(gameObject);
+
         }
 
     }

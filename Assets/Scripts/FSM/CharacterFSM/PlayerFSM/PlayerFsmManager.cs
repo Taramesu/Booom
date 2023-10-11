@@ -158,6 +158,7 @@ public class PlayerFsmManager : MonoBehaviour
     public void GetDamage(float damage)
     {
         parameter.currentHP -= damage;
+        Debug.Log(parameter.currentHP);
     }
 
     public Room GetCurrentRoom()

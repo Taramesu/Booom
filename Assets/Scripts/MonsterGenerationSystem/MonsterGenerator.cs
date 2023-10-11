@@ -1,3 +1,4 @@
+using Excel.Exceptions;
 using FsmManager;
 using StateType;
 using System.Collections;
@@ -9,33 +10,73 @@ using UnityEngine.UIElements;
 public class MonsterGenerator : Singleton2Manager<MonsterGenerator>
 {
 
-    List<GameObject> monsterList = new List<GameObject>();
+    public List<GameObject> monsterList = new List<GameObject>();
+    private Room currentRoom;
 
-    public void GenerateMonster(Transform roomPos)
+    public void EnterRoom(Room targetRoom)
     {
-        
-        switch(Random.Range(1, 4))
+
+        currentRoom = targetRoom;
+        if(!currentRoom.isCleared)
         {
-            case 1:
-                GenerateTumour(roomPos);
-                break;
-            case 2:
-                GenerateFly(roomPos);
-                break;
-            case 3:
-                GenerateSkeleton(roomPos);
-                break;
-            default:
-                break;
+            GenerateMonster();
         }
-        
 
     }
 
-    public void RandomList()
+    public void GenerateMonster()
     {
 
         
+        Transform roomPos = currentRoom.transform;
+
+        if(currentRoom.type == RoomType.BOSS)
+        {
+            GenerateBoss(roomPos);
+        }
+        else if(currentRoom.type == RoomType.EliteMonster)
+        {
+            if(Random.Range(1,11) < 6)
+            {
+                GenerateSuperFly(roomPos);
+            }
+            else
+            {
+                GenerateSuperSkeleton(roomPos);
+            }
+        }
+        else if(currentRoom.type == RoomType.OrdinaryMonster)
+        {
+            GenerateTumour(roomPos);
+            if (Random.Range(1, 11) < 6)
+            {
+                GenerateFly(roomPos);
+            }
+            else
+            {
+                GenerateSkeleton(roomPos);
+            }
+        }
+        
+    }
+
+    private void Update()
+    {
+
+        if(currentRoom == null)
+        {
+            return;
+        }
+
+        if (!currentRoom.isCleared)
+        {
+
+            if(monsterList.Count == 0)
+            {
+                currentRoom.isCleared = true;
+            }
+
+        }
 
     }
 
@@ -62,19 +103,16 @@ public class MonsterGenerator : Singleton2Manager<MonsterGenerator>
         GameObject tumour = GetMonsterPrefab("Tumour");
         tumour.GetComponent<TumourFsmManager>().center = roomPos.position;
 
-        
 
-        for(int i = -1; i < 2; i += 2)
+        for (int j = -1; j < 2; j += 2)
         {
-            for(int j = -1; j < 2; j += 2)
-            {
-                Vector3 position = roomPos.position;
-                position.y += i * 2.5f;
-                position.x += j * 5;
+            Vector3 position = roomPos.position;
+            position.x += j * 3;
 
-                Instantiate(tumour, position, Quaternion.identity);
+            GameObject gameObject = Instantiate(tumour, position, Quaternion.identity);
 
-            }
+            monsterList.Add(gameObject);
+
         }
 
     }
@@ -83,17 +121,83 @@ public class MonsterGenerator : Singleton2Manager<MonsterGenerator>
     {
         GameObject fly = GetMonsterPrefab("Fly");
         fly.GetComponent<FlyFsmManager>().center = roomPos.position;
-        Vector3 position = roomPos.position;
-        Instantiate(fly, position, Quaternion.identity);
+        for (int i = -1; i < 2; i += 2)
+        {
+            for (int j = -1; j < 2; j += 2)
+            {
+                Vector3 position = roomPos.position;
+                position.y += i * 2.5f;
+                position.x += j * 5;
+
+                GameObject gameObject = Instantiate(fly, position, Quaternion.identity);
+
+                monsterList.Add(gameObject);
+
+            }
+        }
     }
 
     public void GenerateSkeleton(Transform roomPos)
     {
         GameObject skeleton = GetMonsterPrefab("Skeleton");
         skeleton.GetComponent<SkeletonFsmManager>().center = roomPos.position;
-        Vector3 position = roomPos.position;
-        Instantiate(skeleton, position, Quaternion.identity);
+
+        for (int i = -1; i < 2; i += 2)
+        {
+            for (int j = -1; j < 2; j += 2)
+            {
+                Vector3 position = roomPos.position;
+                position.y += i * 2.5f;
+                position.x += j * 5;
+
+                GameObject gameObject = Instantiate(skeleton, position, Quaternion.identity);
+
+                monsterList.Add(gameObject);
+
+            }
+        }
 
     }
+
+    public void GenerateSuperFly(Transform roomPos)
+    {
+        GameObject superFly = GetMonsterPrefab("SuperFly");
+        superFly.GetComponent<SuperFlyFsmManager>().center = roomPos.position;
+        for (int j = -1; j < 2; j += 2)
+        {
+            Vector3 position = roomPos.position;
+            position.x += j * 3;
+
+            GameObject gameObject = Instantiate(superFly, position, Quaternion.identity);
+
+            monsterList.Add(gameObject);
+
+        }
+    }
+
+    public void GenerateSuperSkeleton(Transform roomPos)
+    {
+        GameObject superSkeleton = GetMonsterPrefab("SuperSkeleton");
+        superSkeleton.GetComponent<SuperSkeletonFsmManager>().center = roomPos.position;
+        for (int j = -1; j < 2; j += 2)
+        {
+            Vector3 position = roomPos.position;
+            position.x += j * 3;
+
+            GameObject gameObject = Instantiate(superSkeleton, position, Quaternion.identity);
+
+            monsterList.Add(gameObject);
+
+        }
+    }
+
+    public void GenerateBoss(Transform roomPos)
+    {
+        GameObject boss = GetMonsterPrefab("satan");
+        boss.GetComponent<SatanFsmManager>().center = roomPos.position;
+        GameObject gameObject = Instantiate(boss, roomPos.transform.position, Quaternion.identity);
+        monsterList.Add(gameObject);
+    }
+
 
 }

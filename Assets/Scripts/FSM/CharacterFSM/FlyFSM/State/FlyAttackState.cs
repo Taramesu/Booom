@@ -79,6 +79,7 @@ public class FlyAttackState : IState
 
     public void OnUpdate()
     {
+
         timer -= Time.deltaTime;
 
         if(timer < 0)
@@ -88,8 +89,6 @@ public class FlyAttackState : IState
 
             if (isMultipleAtk)
             {
-
-
 
                 if (parameter.targetPos.x < parameter.transform.position.x)
                 {

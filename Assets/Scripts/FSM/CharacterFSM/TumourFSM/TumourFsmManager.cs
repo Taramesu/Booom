@@ -83,14 +83,25 @@ namespace FsmManager
             }
         }
 
-        public void GetDamege(int damege)
+        public void GetDamage(float damage)
         {
-            parameter.currentHP -= damege;
+            parameter.currentHP -= damage;
+            Debug.Log(parameter.currentHP);
+        }
+
+        public void OnDie()
+        {
+
+            TransitionState(TumourST.Boom);
+
         }
 
         public void OnDestroy()
         {
+
+            MonsterGenerator.Instance.monsterList.Remove(gameObject);
             GameObject.Destroy(gameObject);
+
         }
 
     }
