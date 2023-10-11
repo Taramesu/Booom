@@ -21,6 +21,8 @@ namespace Parameter
 
         public int currentWaypoint = 0;
 
+        public Vector3 center = new Vector3(0,0,0);
+
         public Vector3 targetPos;
 
         public Animator animator;

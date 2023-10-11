@@ -9,6 +9,8 @@ namespace FsmManager
 {
     public class TumourFsmManager : MonoBehaviour
     {
+        public Vector3 center;
+
         private IState currentState;
 
         private Dictionary<TumourST, IState> states = new Dictionary<TumourST, IState>();
@@ -19,12 +21,18 @@ namespace FsmManager
         void Start()
         {
 
+            GridGraph gridGraph = AstarPath.active.data.gridGraph;
+
             states.Add(TumourST.Empty, new TumourEmptyState(this));
             states.Add(TumourST.Run, new TumourRunState(this));
             states.Add(TumourST.Idle, new TumourIdleState(this));
             states.Add(TumourST.Boom, new TumourBoomState(this));
 
             InitializeData();
+
+            gridGraph.center = center;
+
+            AstarPath.active.Scan(gridGraph);
 
             TransitionState(TumourST.Idle);
 

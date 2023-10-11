@@ -9,6 +9,7 @@ namespace FsmManager
 {
     public class FlyFsmManager : MonoBehaviour
     {
+        public Vector3 center;
         private IState currentState;
 
         private Dictionary<FlyST, IState> states = new Dictionary<FlyST, IState>();
@@ -18,6 +19,7 @@ namespace FsmManager
 
         void Start()
         {
+            GridGraph gridGraph = AstarPath.active.data.gridGraph;
 
             states.Add(FlyST.Empty, new FlyEmptyState(this));
             states.Add(FlyST.Run, new FlyRunState(this));
@@ -25,6 +27,10 @@ namespace FsmManager
             states.Add(FlyST.Attack, new FlyAttackState(this));
 
             InitializeData();
+
+            gridGraph.center = center;
+
+            AstarPath.active.Scan(gridGraph);
 
             TransitionState(FlyST.Idle);
 

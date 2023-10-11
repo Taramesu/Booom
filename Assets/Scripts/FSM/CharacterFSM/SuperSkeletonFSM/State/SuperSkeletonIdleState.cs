@@ -1,5 +1,6 @@
 using FsmManager;
 using Parameter;
+using StateType;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class SuperSkeletonIdleState : IState
     public void OnEnter()
     {
 
-        if (parameter.animator != null)
+        if (parameter.animator == null)
         {
             Debug.LogError("Miss animator");
         }
@@ -35,6 +36,8 @@ public class SuperSkeletonIdleState : IState
 
     public void OnUpdate()
     {
+
+        manager.TransitionState(SuperSkeletonST.Run);
 
     }
 }
