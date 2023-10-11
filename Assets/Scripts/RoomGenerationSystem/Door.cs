@@ -75,6 +75,7 @@ public class Door : MonoBehaviour
             RoomGenerator.Instance.roomEdgePosition = roomEdge.transform.position;
             collision.GetComponent<Transform>().position = target.position + transferOffset;
 
+            MonsterGenerator.Instance.GenerateMonster(targetRoom);
 
             timeTools.PauseGame(0.3f);
 

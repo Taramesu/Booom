@@ -9,23 +9,17 @@ namespace FsmManager
 {
     public class SuperSkeletonFsmManager : MonoBehaviour
     {
+        public Vector3 center;
+
         private IState currentState;
 
         private Dictionary<SuperSkeletonST, IState> states = new Dictionary<SuperSkeletonST, IState>();
 
         public SuperSkeletonParameter parameter = new SuperSkeletonParameter();
 
-        private Seeker seeker;
-
-        public Pathfinding.Path path;
-
-        public float nextWaypointDistance = 3;
-
-        private int currentWaypoint = 0;
-
-
         void Start()
         {
+            GridGraph gridGraph = AstarPath.active.data.gridGraph;
 
             states.Add(SuperSkeletonST.Empty, new SuperSkeletonEmptyState(this));
             states.Add(SuperSkeletonST.Run, new SuperSkeletonRunState(this));
@@ -34,6 +28,10 @@ namespace FsmManager
 
             InitializeData();
 
+            gridGraph.center = center;
+
+            AstarPath.active.Scan(gridGraph);
+
             TransitionState(SuperSkeletonST.Idle);
 
         }
@@ -41,26 +39,13 @@ namespace FsmManager
         void Update()
         {
 
-            parameter.targetPos = GameObject.Find("Player(Clone)").GetComponent<Transform>().position;
-
-            seeker.StartPath(parameter.transform.position, parameter.targetPos);
-            if (path == null)
-            {
-                return;
-            }
-            if (currentWaypoint >= path.vectorPath.Count)
-            {
-                Debug.Log("路径搜索结束");
-                return;
-            }
-
-            seeker.StartPath(parameter.transform.position, parameter.targetPos, OnPathComplete);
+            currentState.OnUpdate();
 
         }
 
         public void TransitionState(SuperSkeletonST type)
         {
-            if (currentState == null)
+            if (currentState != null)
             {
                 currentState.OnExit();
             }
@@ -74,7 +59,7 @@ namespace FsmManager
         private void InitializeData()
         {
             DataManager.Instance.LoadAll();
-            var data = DataManager.Instance.GetfasdffByID(1);
+            var data = DataManager.Instance.GetfasdffByID(4);
             parameter.currentHP = data.HP;
             parameter.ATK = data.ATK;
             parameter.speed = data.speed;
@@ -82,18 +67,22 @@ namespace FsmManager
 
             parameter.transform = GetComponent<Transform>();
             parameter.animator = transform.Find("SuperSkeleton").GetComponent<Animator>();
-            seeker = GetComponent<Seeker>();
-            seeker.pathCallback += OnPathComplete;
+            parameter.seeker = GetComponent<Seeker>();
+            parameter.seeker.pathCallback += OnPathComplete;
         }
 
         private void OnPathComplete(Pathfinding.Path p)
         {
             if (!p.error)
             {
-                path = p;
-                currentWaypoint = 0;
+                parameter.path = p;
+                parameter.currentWaypoint = 0;
             }
-            Debug.Log("发现这个路线" + p.error);
+        }
+
+        public void GetDamege(int damege)
+        {
+            parameter.currentHP -= damege;
         }
 
     }

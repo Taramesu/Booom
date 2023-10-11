@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TestST
+public enum MonsterType
 {
-    Empty, Idle, Run, Attack, Walk
+    Skeleton,Fly,Tumour
 }

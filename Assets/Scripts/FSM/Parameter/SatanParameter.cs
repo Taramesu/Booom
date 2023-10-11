@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Parameter
 {
-    public class SuperSkeletonParameter
+    public class SatanParameter
     {
         public float currentHP;
 
@@ -14,6 +14,8 @@ namespace Parameter
         public float speed;
 
         public float speedMulti;
+
+        public float shootRate;
 
         public Seeker seeker;
 
@@ -28,5 +30,7 @@ namespace Parameter
         public Animator animator;
 
         public Transform transform;
+
     }
+
 }

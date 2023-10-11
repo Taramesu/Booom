@@ -12,6 +12,8 @@ namespace FsmManager
 {
     public class SkeletonFsmManager : MonoBehaviour
     {
+        public Vector3 center;
+
         private IState currentState;
 
         private Dictionary<SkeletonST, IState> states = new Dictionary<SkeletonST, IState>();
@@ -22,6 +24,7 @@ namespace FsmManager
 
         void Start()
         {
+            GridGraph gridGraph = AstarPath.active.data.gridGraph;
 
             states.Add(SkeletonST.Empty, new SkeletonEmptyState(this));
             states.Add(SkeletonST.Run, new SkeletonRunState(this));
@@ -29,6 +32,10 @@ namespace FsmManager
             states.Add(SkeletonST.Attack, new SkeletonAttackState(this));
 
             InitializeData();
+
+            gridGraph.center = center;
+
+            AstarPath.active.Scan(gridGraph);
 
             TransitionState(SkeletonST.Idle);
 

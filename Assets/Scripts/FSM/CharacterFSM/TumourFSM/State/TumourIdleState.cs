@@ -12,6 +12,8 @@ public class TumourIdleState : IState
     private TumourFsmManager manager;
     private TumourParameter parameter;
 
+    private float timer = 0.5f;
+
     public TumourIdleState(TumourFsmManager manager)
     {
         this.manager = manager;
@@ -20,8 +22,6 @@ public class TumourIdleState : IState
 
     public void OnEnter()
     {
-
-        Debug.Log("enter Idel");
 
         if (parameter.animator == null)
         {
@@ -37,14 +37,17 @@ public class TumourIdleState : IState
     public void OnExit()
     {
 
-        Debug.Log("exit Idel");
-
     }
 
     public void OnUpdate()
     {
 
-        manager.TransitionState(TumourST.Run);
+        if(timer < 0)
+        {
+            manager.TransitionState(TumourST.Run);
+        }
+
+        timer -= Time.deltaTime;
 
     }
 

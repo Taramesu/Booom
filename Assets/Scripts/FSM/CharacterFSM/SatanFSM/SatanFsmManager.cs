@@ -7,24 +7,23 @@ using UnityEngine;
 
 namespace FsmManager
 {
-    public class SuperFlyFsmManager : MonoBehaviour
+    public class SatanFsmManager : MonoBehaviour
     {
         public Vector3 center;
+
         private IState currentState;
 
-        private Dictionary<SuperFlyST, IState> states = new Dictionary<SuperFlyST, IState>();
+        private Dictionary<SatanST, IState> states = new Dictionary<SatanST, IState>();
 
-        public SuperFlyParameter parameter = new SuperFlyParameter();
-
+        public SatanParameter parameter = new SatanParameter();
 
         void Start()
         {
             GridGraph gridGraph = AstarPath.active.data.gridGraph;
 
-            states.Add(SuperFlyST.Empty, new SuperFlyEmptyState(this));
-            states.Add(SuperFlyST.Run, new SuperFlyRunState(this));
-            states.Add(SuperFlyST.Idle, new SuperFlyIdleState(this));
-            states.Add(SuperFlyST.Attack, new SuperFlyAttackState(this));
+            states.Add(SatanST.Run, new SatanRunState(this));
+            states.Add(SatanST.Idle, new SatanIdleState(this));
+            states.Add(SatanST.Attack, new SatanAttackState(this));
 
             InitializeData();
 
@@ -32,16 +31,18 @@ namespace FsmManager
 
             AstarPath.active.Scan(gridGraph);
 
-            TransitionState(SuperFlyST.Idle);
+            TransitionState(SatanST.Idle);
 
         }
 
         void Update()
         {
+
             currentState.OnUpdate();
+
         }
 
-        public void TransitionState(SuperFlyST type)
+        public void TransitionState(SatanST type)
         {
             if (currentState != null)
             {
@@ -53,19 +54,21 @@ namespace FsmManager
             currentState = states[type];
 
             currentState.OnEnter();
+
         }
 
         private void InitializeData()
         {
             DataManager.Instance.LoadAll();
-            var data = DataManager.Instance.GetfasdffByID(5);
+            var data = DataManager.Instance.GetfasdffByID(6);
             parameter.currentHP = data.HP;
             parameter.ATK = data.ATK;
             parameter.speed = data.speed;
+            parameter.speedMulti = data.speedMulti;
             parameter.shootRate = data.shootRate;
 
             parameter.transform = GetComponent<Transform>();
-            parameter.animator = transform.Find("SuperFly").GetComponent<Animator>();
+            parameter.animator = transform.Find("satan").GetComponent<Animator>();
             parameter.seeker = GetComponent<Seeker>();
             parameter.seeker.pathCallback += OnPathComplete;
         }
@@ -85,5 +88,5 @@ namespace FsmManager
         }
 
     }
-}
 
+}

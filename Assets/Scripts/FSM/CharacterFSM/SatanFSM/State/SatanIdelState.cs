@@ -5,13 +5,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuperFlyIdleState : IState
+public class SatanIdleState : IState
 {
 
-    private SuperFlyFsmManager manager;
-    private SuperFlyParameter parameter;
+    private SatanFsmManager manager;
+    private SatanParameter parameter;
 
-    public SuperFlyIdleState(SuperFlyFsmManager manager)
+    public SatanIdleState(SatanFsmManager manager)
     {
         this.manager = manager;
         this.parameter = manager.parameter;
@@ -25,7 +25,8 @@ public class SuperFlyIdleState : IState
             Debug.LogError("Miss animator");
         }
 
-        parameter.animator.Play("Idel");
+        parameter.animator.Play("Idle");
+
 
     }
 
@@ -37,7 +38,7 @@ public class SuperFlyIdleState : IState
     public void OnUpdate()
     {
 
-        manager.TransitionState(SuperFlyST.Run);
+        manager.TransitionState(SatanST.Run);
 
     }
 }
