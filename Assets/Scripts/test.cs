@@ -34,7 +34,7 @@ public class test : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.F))
         {
-            CardManager.Instance.InstantiateCardBag();
+            
         }
     }
 }

@@ -145,14 +145,29 @@ public class PlayerController : MonoBehaviour
     public void OnPauseGameStarted(InputAction.CallbackContext value)
     {
         //Debug.Log(value.action.name + (" was triggered"));
-        PlayerInputData.Instance.pauseGameVal = true;
+        if(PlayerInputData.Instance.pauseGameVal == true)
+        {
+            PlayerInputData.Instance.pauseGameVal = false;
+#if UNITY_EDITOR
+            Debug.Log(PlayerInputData.Instance.pauseGameVal);
+#endif
+        }
+        else
+        {
+            PlayerInputData.Instance.pauseGameVal = true;
+#if UNITY_EDITOR
+            Debug.Log(PlayerInputData.Instance.pauseGameVal);
+#endif
+        }
+        
+       
     }
 
     public void OnPauseGameCanceled(InputAction.CallbackContext value)
     {
         PanelManager.Instance.Clear();
         PanelManager.Instance.Push(new SettingPanel());
-        PlayerInputData.Instance.pauseGameVal = false;
+        //PlayerInputData.Instance.pauseGameVal = false;
     }
 
     #endregion

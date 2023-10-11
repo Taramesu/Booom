@@ -20,10 +20,11 @@ public class BattlePanel : BasePanel
         UITool.GetOrAddComponentInChildren<Button>("Btn_Pause", panel).onClick.AddListener(() =>
         {
             PanelManager.Instance.Push(new SettingPanel());
+            PlayerInputData.Instance.pauseGameVal = true;
         });
         UITool.GetOrAddComponentInChildren<Button>("Btn_CardBag", panel).onClick.AddListener(() =>
         {
-            CardManager.Instance.InstantiateCardBag();
+            CardManager.Instance.ControlCardBag();
         });
     }
     

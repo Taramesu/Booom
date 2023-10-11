@@ -17,6 +17,7 @@ public class PausePanel : BasePanel
         GameObject panel = UIManager.Instance.GetSingleUI(UIType);
         UITool.GetOrAddComponentInChildren<Button>("Btn_Confirm", panel).onClick.AddListener(() =>
         {
+            PlayerInputData.Instance.pauseGameVal = false;
             PanelManager.Instance.Pop();
             PanelManager.Instance.Pop();
         });

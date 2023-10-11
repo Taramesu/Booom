@@ -17,6 +17,7 @@ public class Door : MonoBehaviour
     public Transform targetRoom;
     public Transform roomEdge;
     public Room targetRoomData;
+    public Room currentRoomData;
     public bool isOpen;
 
     private TimeTools timeTools;
@@ -33,6 +34,10 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentRoomData.isCleared)
+        {
+            isOpen = true;
+        }
         DoorControl();
     }
 
@@ -71,8 +76,8 @@ public class Door : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
 
-            //if(targetRoomData.isCleared)
-            //{
+            if(currentRoomData.isCleared)
+            {
 
                 var camera = Camera.main;
                 camera.GetComponent<ScreenFader>().StartFade();
@@ -85,7 +90,7 @@ public class Door : MonoBehaviour
 
                 timeTools.PauseGame(0.3f);
 
-            //}
+            }
             
         }
     }

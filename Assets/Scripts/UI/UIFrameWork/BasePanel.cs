@@ -18,6 +18,10 @@ namespace UIFrameWork
         public virtual void OnPause()
         {
             GameObject panel = UIManager.Instance.GetSingleUI(UIType);
+            if (panel == null) 
+            {
+                return;
+            }
             UITool.GetOrAddComponent<CanvasGroup>(panel).blocksRaycasts = false;
         }
         //恢复时
