@@ -10,8 +10,11 @@ public class SuperSkeletonAttackState : IState
 
     private SuperSkeletonFsmManager manager;
     private SuperSkeletonParameter parameter;
+    private GameObject thornPrefab;
 
     private float timer;
+    private float timer2;
+    private float timer3;
     private Vector3 target;
 
     public SuperSkeletonAttackState(SuperSkeletonFsmManager manager)
@@ -24,7 +27,11 @@ public class SuperSkeletonAttackState : IState
     {
 
         timer = 0.4f;
+        timer2 = 0.3f;
+        timer3 = 2f;
         target = parameter.transform.position;
+
+        thornPrefab = PathAndPrefabManager.Instance.GetBulletPrefab("GroundThorn");
 
         if (parameter.animator == null)
         {
@@ -61,9 +68,20 @@ public class SuperSkeletonAttackState : IState
 
     public void OnUpdate()
     {
+        timer -= Time.deltaTime;
+        timer2 -= Time.deltaTime;
+        timer3 -= Time.deltaTime;
 
-        if (Vector3.Distance(target, parameter.transform.position) < 0.2)
+        if (timer3 < 0)
         {
+            manager.TransitionState(SuperSkeletonST.Idle);
+        }
+
+        GameObject player = GameObject.Find("Player(Clone)");
+
+        if (Vector3.Distance(player.transform.position, parameter.transform.position) < 1.2)
+        {
+            player.GetComponent<PlayerFsmManager>().GetDamage(parameter.ATK);
             manager.TransitionState(SuperSkeletonST.Idle);
         }
 
@@ -71,10 +89,15 @@ public class SuperSkeletonAttackState : IState
         {
             parameter.transform.Translate((target - parameter.transform.position).normalized * parameter.speedMulti * Time.deltaTime);
 
-            return;
-        }
+            if (timer2 < 0)
+            {
+                GameObject.Instantiate(thornPrefab, parameter.transform.position, Quaternion.identity);
+                timer2 = 0.3f;
+            }
 
-        timer -= Time.deltaTime;
+            return;
+
+        }
 
     }
 }

@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
         generator.roomLayer = LayerMask.GetMask("Room");
         //��ʼ����
         generator.GenerateRooms();
+
+        var monstergenerator = MonsterGenerator.Instance;
+
     }
 
     private void InitializeCameraData()

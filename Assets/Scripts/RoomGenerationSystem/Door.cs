@@ -70,14 +70,23 @@ public class Door : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            var camera = Camera.main;
-            camera.GetComponent<ScreenFader>().StartFade();
-            roomEdge.transform.position = targetRoom.transform.position;
-            RoomGenerator.Instance.roomEdgePosition = roomEdge.transform.position;
-            collision.GetComponent<Transform>().position = target.position + transferOffset;
-            collision.GetComponent<PlayerFsmManager>().parameter.currentRoomID = targetRoomData.roomID;
 
-            timeTools.PauseGame(0.3f);
+            //if(targetRoomData.isCleared)
+            //{
+
+                var camera = Camera.main;
+                camera.GetComponent<ScreenFader>().StartFade();
+                roomEdge.transform.position = targetRoom.transform.position;
+                RoomGenerator.Instance.roomEdgePosition = roomEdge.transform.position;
+                collision.GetComponent<Transform>().position = target.position + transferOffset;
+                collision.GetComponent<PlayerFsmManager>().parameter.currentRoomID = targetRoomData.roomID;
+
+                MonsterGenerator.Instance.EnterRoom(targetRoomData);
+
+                timeTools.PauseGame(0.3f);
+
+            //}
+            
         }
     }
 }

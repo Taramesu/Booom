@@ -44,6 +44,11 @@ namespace FsmManager
         void Update()
         {
 
+            if (parameter.currentHP < 0)
+            {
+                OnDestroy();
+            }
+
             currentState.OnUpdate();
             //seeker.StartPath(parameter.transform.position, parameter.targetPos, OnPathComplete);
 
@@ -86,9 +91,18 @@ namespace FsmManager
             }
         }
 
-        public void GetDamege(int damege)
+        public void GetDamage(float damage)
         {
-            parameter.currentHP -= damege;
+            parameter.currentHP -= damage;
+            Debug.Log(parameter.currentHP);
+        }
+
+        public void OnDestroy()
+        {
+
+            MonsterGenerator.Instance.monsterList.Remove(gameObject);
+            GameObject.Destroy(gameObject);
+
         }
 
     }

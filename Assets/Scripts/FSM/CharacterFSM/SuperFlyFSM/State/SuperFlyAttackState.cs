@@ -93,6 +93,10 @@ public class SuperFlyAttackState : IState
 
                     bullet = UnityEngine.Object.Instantiate(bulletPrefab, leftSpawn.position, Quaternion.identity).GetComponent<Bullet>();
                     BulletDataInitailize(bullet, Bullet.Diraction.Left);
+                    bullet = UnityEngine.Object.Instantiate(bulletPrefab, leftSpawn.position, Quaternion.identity).GetComponent<Bullet>();
+                    BulletDataInitailize(bullet, Bullet.Diraction.UpLeft);
+                    bullet = UnityEngine.Object.Instantiate(bulletPrefab, leftSpawn.position, Quaternion.identity).GetComponent<Bullet>();
+                    BulletDataInitailize(bullet, Bullet.Diraction.DownLeft);
 
                 }
                 else
@@ -100,6 +104,10 @@ public class SuperFlyAttackState : IState
 
                     bullet = UnityEngine.Object.Instantiate(bulletPrefab, rightSpawn.position, Quaternion.identity).GetComponent<Bullet>();
                     BulletDataInitailize(bullet, Bullet.Diraction.Right);
+                    bullet = UnityEngine.Object.Instantiate(bulletPrefab, rightSpawn.position, Quaternion.identity).GetComponent<Bullet>();
+                    BulletDataInitailize(bullet, Bullet.Diraction.UpRight);
+                    bullet = UnityEngine.Object.Instantiate(bulletPrefab, rightSpawn.position, Quaternion.identity).GetComponent<Bullet>();
+                    BulletDataInitailize(bullet, Bullet.Diraction.DownRight);
 
                 }
 
@@ -120,6 +128,10 @@ public class SuperFlyAttackState : IState
 
                     bullet = UnityEngine.Object.Instantiate(bulletPrefab, leftSpawn.position, Quaternion.identity).GetComponent<Bullet>();
                     BulletDataInitailize(bullet, Bullet.Diraction.Left);
+                    bullet = UnityEngine.Object.Instantiate(bulletPrefab, leftSpawn.position, Quaternion.identity).GetComponent<Bullet>();
+                    BulletDataInitailize(bullet, Bullet.Diraction.UpLeft);
+                    bullet = UnityEngine.Object.Instantiate(bulletPrefab, leftSpawn.position, Quaternion.identity).GetComponent<Bullet>();
+                    BulletDataInitailize(bullet, Bullet.Diraction.DownLeft);
 
                 }
                 else
@@ -127,6 +139,10 @@ public class SuperFlyAttackState : IState
 
                     bullet = UnityEngine.Object.Instantiate(bulletPrefab, rightSpawn.position, Quaternion.identity).GetComponent<Bullet>();
                     BulletDataInitailize(bullet, Bullet.Diraction.Right);
+                    bullet = UnityEngine.Object.Instantiate(bulletPrefab, rightSpawn.position, Quaternion.identity).GetComponent<Bullet>();
+                    BulletDataInitailize(bullet, Bullet.Diraction.UpRight);
+                    bullet = UnityEngine.Object.Instantiate(bulletPrefab, rightSpawn.position, Quaternion.identity).GetComponent<Bullet>();
+                    BulletDataInitailize(bullet, Bullet.Diraction.DownRight);
 
                 }
 

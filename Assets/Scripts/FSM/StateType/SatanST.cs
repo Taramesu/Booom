@@ -6,6 +6,6 @@ namespace StateType
 {
     public enum SatanST
     {
-        Empty, Idle, Run, Attack
+        Empty, Idle, Run, Attack,Shoot
     }
 }

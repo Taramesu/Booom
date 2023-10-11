@@ -58,13 +58,33 @@ public class SatanRunState : IState
 
         Vector3 dir = (parameter.path.vectorPath[parameter.currentWaypoint + 1] - parameter.transform.position).normalized;
 
-        if (Math.Abs(parameter.transform.position.y - parameter.targetPos.y) < 0.2 && Vector3.Distance(parameter.transform.position, parameter.targetPos) < 3)
+        if (Math.Abs(parameter.transform.position.y - parameter.targetPos.y) < 0.35 && Vector3.Distance(parameter.transform.position, parameter.targetPos) < 3)
         {
+
+            if(parameter.targetPos.x < parameter.transform.position.x)
+            {
+                parameter.direction = Direction.left;
+            }
+            else
+            {
+                parameter.direction = Direction.right;
+            }
+
             manager.TransitionState(SatanST.Attack);
         }
 
-        if (Math.Abs(parameter.transform.position.x - parameter.targetPos.x) < 0.2 && Vector3.Distance(parameter.transform.position, parameter.targetPos) < 3)
+        if (Math.Abs(parameter.transform.position.x - parameter.targetPos.x) < 0.35 && Vector3.Distance(parameter.transform.position, parameter.targetPos) < 3)
         {
+
+            if (parameter.targetPos.y < parameter.transform.position.y)
+            {
+                parameter.direction = Direction.front;
+            }
+            else
+            {
+                parameter.direction = Direction.behind;
+            }
+
             manager.TransitionState(SatanST.Attack);
         }
 

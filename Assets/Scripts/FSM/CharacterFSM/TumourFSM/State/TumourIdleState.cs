@@ -42,7 +42,12 @@ public class TumourIdleState : IState
     public void OnUpdate()
     {
 
-        if(timer < 0)
+        if (parameter.currentHP < 1)
+        {
+            manager.OnDie();
+        }
+
+        if (timer < 0)
         {
             manager.TransitionState(TumourST.Run);
         }

@@ -2,6 +2,7 @@ using FsmManager;
 using Parameter;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 //Ð¡¹ÖTumour¹¥»÷×´Ì¬
@@ -22,25 +23,13 @@ public class TumourBoomState : IState
     public void OnEnter()
     {
         timer = 0.7f;
-        parameter.targetPos = GameObject.Find("Player(Clone)").GetComponent<Transform>().position;
 
         if (parameter.animator == null)
         {
             Debug.LogError("Miss animator");
         }
 
-        if(parameter.transform.position.x < parameter.targetPos.x)
-        {
-
-            Debug.Log("boom right");
-
-            parameter.animator.Play("boom-left");
-        }
-        else
-        {
-            parameter.animator.Play("boom-left");
-        }
-       
+        parameter.animator.Play("boom-left");
 
     }
 
@@ -55,16 +44,25 @@ public class TumourBoomState : IState
     {
         timer -= Time.deltaTime;
 
-        if(timer < 0)
+        if (timer < 0)
         {
-            parameter.targetPos = GameObject.Find("Player(Clone)").GetComponent<Transform>().position;
+            GameObject player = GameObject.Find("Player(Clone)");
 
-            if(Vector3.Distance(parameter.targetPos,parameter.transform.position) < 1.3)
+            Debug.Log(Vector3.Distance(player.GetComponent<Transform>().position, parameter.transform.position));
+
+            if (Vector3.Distance(player.GetComponent<Transform>().position, parameter.transform.position) < 1.9)
             {
-                //GameObject.Find("Player(Clone)")
+                
+                {
+                    Debug.Log("player != null");
+                    player.GetComponent<PlayerFsmManager>().GetDamage(parameter.criticalMulti);
+
+                }
+
             }
 
             manager.OnDestroy();
+
         }
 
     }

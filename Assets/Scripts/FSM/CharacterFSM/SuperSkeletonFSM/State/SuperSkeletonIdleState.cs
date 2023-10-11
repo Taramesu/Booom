@@ -11,6 +11,8 @@ public class SuperSkeletonIdleState : IState
     private SuperSkeletonFsmManager manager;
     private SuperSkeletonParameter parameter;
 
+    private float timer;
+
     public SuperSkeletonIdleState(SuperSkeletonFsmManager manager)
     {
         this.manager = manager;
@@ -19,6 +21,7 @@ public class SuperSkeletonIdleState : IState
 
     public void OnEnter()
     {
+        timer = 0.2f;
 
         if (parameter.animator == null)
         {
@@ -36,8 +39,12 @@ public class SuperSkeletonIdleState : IState
 
     public void OnUpdate()
     {
+        timer -= Time.deltaTime;
 
-        manager.TransitionState(SuperSkeletonST.Run);
+        if(timer < 0)
+        {
+            manager.TransitionState(SuperSkeletonST.Run);
+        }
 
     }
 }
