@@ -17,20 +17,25 @@ public class MainMenuPanel : BasePanel
         GameObject panel = UIManager.Instance.GetSingleUI(UIType);
         UITool.GetOrAddComponentInChildren<Button>("Btn_StartGame", panel).onClick.AddListener(() =>
         {
-            //GameRoot.Instance.SwitchScene("GameScene");
+            ArchiveSystem.Instance.NewArchive();
             SceneSystem.Instance.SetScene(new GameScene());
         });
-        UITool.GetOrAddComponentInChildren<Button>("Btn_Continue", panel).onClick.AddListener(() =>
+        if (ArchiveSystem.Instance.IsArchiveExist())
         {
-            
-        });
+            UITool.GetOrAddComponentInChildren<Button>("Btn_Continue", panel).interactable = true;
+            UITool.GetOrAddComponentInChildren<Button>("Btn_Continue", panel).onClick.AddListener(() =>
+            {
+                ArchiveSystem.Instance.LoadArchive();
+                SceneSystem.Instance.SetScene(new GameScene());
+            });
+        }
         UITool.GetOrAddComponentInChildren<Button>("Btn_Setting", panel).onClick.AddListener(() =>
         {
             PanelManager.Instance.Push(new MainMenuSettingPanel());
         });
         UITool.GetOrAddComponentInChildren<Button>("Btn_Exit", panel).onClick.AddListener(() =>
         {
-            PanelManager.Instance.Push(new PausePanel());
+            PanelManager.Instance.Push(new ExitPanel());
         });
     }
 }

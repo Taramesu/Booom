@@ -114,9 +114,9 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
         }
     }
 
-    public GameObject GetCardPoolPrefab(string cardPoolName)
+    public GameObject GetCardBagPrefab(string cardBagName)
     {
-        var path = "Assets/Prefabs/Cards/" + cardPoolName + ".prefab";
+        var path = "Assets/Prefabs/Cards/" + cardBagName + ".prefab";
         try
         {
             return AssetDatabase.LoadAssetAtPath<GameObject>(path);
@@ -124,7 +124,7 @@ public class PathAndPrefabManager : Singleton2Manager<PathAndPrefabManager>
         catch (System.Exception e)
         {
 #if UNITY_EDITOR
-            Debug.Log($"Failed to load cardPool prefab at {path}. \n{e}");
+            Debug.Log($"Failed to load cardBag prefab at {path}. \n{e}");
 #endif
             return default;
         }

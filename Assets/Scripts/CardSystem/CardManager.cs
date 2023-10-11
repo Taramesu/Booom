@@ -7,19 +7,25 @@ public class CardManager : Singleton2Manager<CardManager>
 {
     private int randomID;
     private string cardName;
-    private string cardPoolName;
+    private string cardBagName;
     private List<Card> cardBag = new List<Card>();
+    private GameObject instantiatedCardBag;
 
     #region API
     /// <summary>
-    /// 在position处生成卡池
+    /// 生成CardBag到屏幕中心
     /// </summary>
     /// <param name="position"></param>
-    public void InstantiateCardPool(Vector2 position)
+    public void InstantiateCardBag()
     {
-        cardPoolName = "CardPool";
-        var cardPool = PathAndPrefabManager.Instance.GetCardPoolPrefab(cardPoolName);
-        Instantiate(cardPool,new Vector3(position.x, position.y, 0),Quaternion.identity);
+        if (instantiatedCardBag == null)
+        {
+            cardBagName = "CardBag";
+            var cardBag = PathAndPrefabManager.Instance.GetCardBagPrefab(cardBagName);
+
+            var position = GetScreenCenterWorldPosition(Camera.main);
+            instantiatedCardBag = Instantiate(cardBag, new Vector2(position.x, position.y), Quaternion.identity);
+        }
     }
 
     /// <summary>
@@ -89,5 +95,12 @@ public class CardManager : Singleton2Manager<CardManager>
     {
         cardName = "Card_" + randomID.ToString();
         return PathAndPrefabManager.Instance.GetCardPrefab(cardName);
+    }
+
+    private Vector3 GetScreenCenterWorldPosition(Camera camera)
+    {
+        Vector3 screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0);
+        Vector3 worldPosition = camera.ScreenToWorldPoint(screenCenter);
+        return worldPosition;
     }
 }

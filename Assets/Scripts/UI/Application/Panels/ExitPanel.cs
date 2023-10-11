@@ -18,7 +18,8 @@ public class ExitPanel : BasePanel
         UITool.GetOrAddComponentInChildren<Button>("Btn_Confirm", panel).onClick.AddListener(() =>
         {
             // 自动保存并退回到主菜单
-            PanelManager.Instance.Pop();
+            SceneSystem.Instance.SetScene(new MainMenuScene());
+            PanelManager.Instance.Clear();
         });
         UITool.GetOrAddComponentInChildren<Button>("Btn_Cancel", panel).onClick.AddListener(() =>
         {
