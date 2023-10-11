@@ -13,6 +13,8 @@ public class test : MonoBehaviour
         //ArchiveSystem.Instance.LoadArchive();
         
         //playerFsmManager.parameter.currentRoomID = 0;
+
+        
     }
 
     // Update is called once per frame
@@ -26,27 +28,13 @@ public class test : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Alpha2))
         {
+            cardPool = GameObject.Find("CardBag(Clone)").transform.Find("CardPool").GetComponent<CardPool>();
             cardPool.GetCurrentShape("Card_1");
         }
 
         if(Input.GetKeyDown(KeyCode.F))
         {
-
-            playerFsmManager = PlayerGenerator.Instance.fsmManager;
-            if (playerFsmManager == null)
-            {
-#if UNITY_EDITOR
-                Debug.Log("fsm is null");
-#endif
-            }
-
-            var room = playerFsmManager.GetCurrentRoom();
-            if(room != null) 
-            {
-#if UNITY_EDITOR
-                Debug.Log($"find current room {room.roomID}");
-#endif
-            }
+            CardManager.Instance.InstantiateCardBag();
         }
     }
 }

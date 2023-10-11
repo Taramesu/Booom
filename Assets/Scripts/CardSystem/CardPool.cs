@@ -42,12 +42,10 @@ public class CardPool : MonoBehaviour
     /// <param name="cardName"></param>
     public void GetCurrentShape(string cardName)
     {
-        currentShape = Instantiate(PathAndPrefabManager.Instance.GetCardPrefab(cardName), poolGrid[gridYOffset][gridXOffset].position, Quaternion.identity);
-        //currentShapeRendererList = currentShape.GetComponent<Card>().spriteRendererList;
-        //if (currentShapeRendererList != null ) 
-        //{
-        //    Debug.Log("get renderer");
-        //}
+
+        //currentShape = Instantiate(PathAndPrefabManager.Instance.GetCardPrefab(cardName), poolGrid[gridYOffset][gridXOffset].position, Quaternion.identity);
+        var cardPrefab = PathAndPrefabManager.Instance.GetCardPrefab(cardName);
+        currentShape = Instantiate(cardPrefab, poolGrid[gridYOffset][gridXOffset].position, Quaternion.identity, gameObject.transform);
     }
 
     /// <summary>

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
         InitializeRoomData();
         InitializePlayerData();
         InitializeCameraData();
+
     }
 
     private void InitializeRoomData()
